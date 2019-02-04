@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="nav-item">
+  <template>
+
+       <style>
+          :host {
+              display: inline-block;
+          }
+      </style>
+
+    <a href="{{href::a}}" target="{{target::a}}" type="{{type::a}}" download="{{download::a}}">
+         <template is="dom-if" if="{{iconPosition}}">
+            [[title]]
+            <content></content>
+        </template>
+        <template is="dom-if" if="{{!iconPosition}}">
+            <content></content>
+            [[title]]
+        </template>
+    </a>
+  </template>
+
+  <script>
+  Polymer({
+      is: 'nav-item',
+
+      properties: {
+          iconPosition:{
+              type: String,
+              value: ''
+          }
+      }
+  });
+  </script>
+
+</dom-module>
+
