@@ -279,7 +279,7 @@
               <content select="secondary-items" id="secondary-items"></content>
 
               <template is="dom-repeat" items="{{_secondaryItems}}">
-                <nav-item href="{{item.href}}" title="{{item.title}}" class$="dropdown {{dashed(item.title)}}" dropdown="{{item.items.length}}"></nav-item>
+                <nav-item href="{{item.href}}" title="{{item.title}}" class$="dropdown {{dashed(item.title)}}" dropdown="{{items.length}}"></nav-item>
               </template>
             </secondary-items>
           </div>

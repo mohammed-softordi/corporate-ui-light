@@ -29,13 +29,20 @@
       properties: {
         primaryItems:{
           type: Array,
-          value: [{title: 'primary 1', href: '#1'}, {title: 'primary 2', href: '#2'}, {title: 'primary 3', href: '#3'},
-            {title: 'primary 4', href: '#4'}, {title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6'}
+          value: [{title: 'primary 1', href: '#1'}, {title: 'primary 2', href: '#2',
+            items:[{title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6'}]}, {title: 'primary 3', href: '#3'},
+            {title: 'primary 4', href: '#4'}, {title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6'},
+            {title: 'primary 4', href: '#4'}, {title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6',
+              items:[{title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6'}]}
           ]
         },
         secondaryItems:{
           type: Array,
           value: [{title: 'secondary 1', href: '#1'}, {title: 'secondary 2', href: '#2'}, {title: 'secondary 3', href: '#3'}]
+        },
+        accountItems:{
+          type: Array,
+          value: [{title: 'account 1', href: '#1'}, {title: 'account 2', href: '#2'}, {title: 'account 3', href: '#3'}]
         }
       }
     });
