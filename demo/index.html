@@ -1,10 +1,11 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/corporate-ui.css">
+    <link rel="import" href="node_modules/corporate-ui-light/favicon.html">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/corporate-ui-light/css/corporate-ui.css">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="node_modules/webcomponents.js/webcomponents-lite.js"></script>
     <script>
 
       /*
@@ -13,24 +14,24 @@
       */
     </script>
     <link rel="import" href="corporate-ui-light-demo.html">
-    <link rel="import" href="../nav-item.html">
-    <link rel="import" href="../corporate-header.html">
-    <link rel="import" href="../main-content.html">
-    <link rel="import" href="../corporate-footer.html">
+    <link rel="import" href="node_modules/corporate-ui-light/nav-item.html">
+    <link rel="import" href="node_modules/corporate-ui-light/corporate-header.html">
+    <link rel="import" href="node_modules/corporate-ui-light/main-content.html">
+    <link rel="import" href="node_modules/corporate-ui-light/corporate-footer.html">
   </head>
   <body class="app scania">
   <c-corporate-header site-name="Corporate UI Light" site-url="#" short-name="CUI Light">
-    <nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Help" target="_blank" icon-position="right">
+    <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Help" target="_blank" icon-position="right">
      <i class="fa-2x-medium fa fa-truck"></i>
-    </nav-item>
-    <nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Login" target="_blank" type="button" class="btn btn-primary"></nav-item>
+    </ks-nav-item>
+    <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Login" target="_blank" type="button" class="btn btn-primary"></ks-nav-item>
   </c-corporate-header>
     <c-main-content>
       <corporate-ui-light-demo></corporate-ui-light-demo>
     </c-main-content>
-    <c-corporate-footer>
-      <nav-item href="https://www.scania.com/global/en/home/misc/privacy-statement.html" title="Privacy statement" target="_blank">
-    </nav-item>
-    </c-corporate-footer>
+    <ks-corporate-footer>
+      <ks-nav-item href="https://www.scania.com/global/en/home/misc/privacy-statement.html" title="Privacy statement" target="_blank">
+    </ks-nav-item>
+    </ks-corporate-footer>
   </body>
 </html>

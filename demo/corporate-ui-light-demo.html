@@ -1,6 +1,6 @@
-<link rel="import" href="../../polymer/polymer.html">
- <link rel="import" href="../nav-item.html">
-<link rel="import" href="../main-navigation.html">
+<link rel="import" href="node_modules/polymer-1.4.0/polymer.html">
+ <link rel="import" href="node_modules/corporate-ui-light/nav-item.html">
+<link rel="import" href="node_modules/corporate-ui-light/main-navigation.html">
 
 <dom-module id="corporate-ui-light-demo">
   <template>
@@ -9,14 +9,12 @@
         font-family: sans-serif;
       };
     </style>
-    <c-main-navigation primary-items="[[primaryItems]]" secondary-items="[[secondaryItems]]">
-
-      </c-main-navigation>
+    <c-main-navigation  variation="2" primary-items="[[primaryItems]]" secondary-items="[[secondaryItems]]"></c-main-navigation>
     <div class="text-center margin-top">
-      <nav-item href="https://fmpnextgen.scania.com/#/help/dashboard"
+      <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard"
                 title="Get started" target="_blank" type="button" class="btn btn-info btn-lg" >
          <i class="fa-2x-medium fa fa-home"></i>
-      </nav-item>
+      </ks-nav-item>
     </div>
     <img src="../assets/images/dashboard.png">
 
@@ -29,20 +27,20 @@
       properties: {
         primaryItems:{
           type: Array,
-          value: [{title: 'primary 1', href: '#1'}, {title: 'primary 2', href: '#2',
-            items:[{title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6'}]}, {title: 'primary 3', href: '#3'},
-            {title: 'primary 4', href: '#4'}, {title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6'},
-            {title: 'primary 4', href: '#4'}, {title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6',
-              items:[{title: 'primary 5', href: '#5'}, {title: 'primary 6', href: '#6'}]}
+          value: [{text: 'primary 1', location: '#1'}, {text: 'primary 2', location: '#2',
+            items:[{text: 'primary 5', location: '#5'}, {text: 'primary 6', location: '#6'}]}, {text: 'primary 3', location: '#3'},
+            {text: 'primary 4', location: '#4'}, {text: 'primary 5', location: '#5'}, {text: 'primary 6', location: '#6'},
+            {text: 'primary 4', location: '#4'}, {text: 'primary 5', location: '#5'}, {text: 'primary 6', location: '#6',
+              items:[{text: 'primary 5', location: '#5'}, {text: 'primary 6', location: '#6'}]}
           ]
         },
         secondaryItems:{
           type: Array,
-          value: [{title: 'secondary 1', href: '#1'}, {title: 'secondary 2', href: '#2'}, {title: 'secondary 3', href: '#3'}]
+          value: [{text: 'secondary 1', location: '#1'}, {text: 'secondary 2', location: '#2'}, {text: 'secondary 3', location: '#3'}]
         },
         accountItems:{
           type: Array,
-          value: [{title: 'account 1', href: '#1'}, {title: 'account 2', href: '#2'}, {title: 'account 3', href: '#3'}]
+          value: [{text: 'account 1', location: '#1'}, {text: 'account 2', location: '#2'}, {text: 'account 3', location: '#3'}]
         }
       }
     });
