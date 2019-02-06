@@ -189,9 +189,10 @@
 
     </style>
 
-    <footer class="footer ks-corporate-footer">
-          <span class="wordmark"></span>
-          <content select="c-social-media"></content>
+    <footer class="footer ks-corporate-footer container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <content select="c-social-media"></content>
             <nav class="dropdown-menu footer-links">
                 <content></content>
             </nav>
@@ -199,6 +200,12 @@
           <p class="footer-copy-text">
             <span>&copy;</span> {{copyright}}
           </p>
+            </div>
+            <div class="col-md-4">
+                <span class="wordmark"></span>
+            </div>
+        </div>
+
     </footer>
   </template>
 
