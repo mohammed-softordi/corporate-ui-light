@@ -1,6 +1,6 @@
 {
   "name": "corporate-ui-light",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/mohammed-softordi/corporate-ui-light",
   "license": "MIT",
   "ignore": [
@@ -8,11 +8,13 @@
     "node_modules",
     "bower_components",
     "test",
+    "demo",
     "tests"
   ],
   "dependencies": {
-    "polymer-1.4.0": "1.4.0",
     "bootstrap": "3.3.5",
+    "jquery": "^3.3.1",
+    "polymer-1.4.0": "1.4.0",
     "webcomponents.js": "0.7.24"
   },
   "resolutions": {

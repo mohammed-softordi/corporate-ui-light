@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/build/global/3.5.0/css/corporate-ui.css">
 
     <script src="node_modules/webcomponents.js/webcomponents-lite.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
     <script>
 
       /*
@@ -15,23 +18,24 @@
     </script>
     <link rel="import" href="corporate-ui-light-demo.html">
     <link rel="import" href="node_modules/corporate-ui-light/nav-item.html">
-    <link rel="import" href="node_modules/corporate-ui-light/corporate-header.html">
+    <link rel="import" href="node_modules/corporate-ui-light/main-navigation.html">
     <link rel="import" href="node_modules/corporate-ui-light/main-content.html">
-    <link rel="import" href="node_modules/corporate-ui-light/corporate-footer.html">
+    <link rel="import" href="node_modules/corporate-ui-light/main-footer.html">
   </head>
   <body class="app scania">
-  <c-corporate-header site-name="Corporate UI Light" site-url="#" short-name="CUI Light">
-    <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Help" target="_blank" icon-position="right">
-     <i class="fa-2x-medium fa fa-truck"></i>
-    </ks-nav-item>
-    <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Login" target="_blank" type="button" class="btn btn-primary"></ks-nav-item>
-  </c-corporate-header>
+  <!--<c-corporate-header site-name="Corporate UI Light" site-url="#" short-name="CUI Light">-->
+    <!--<ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Help" target="_blank" icon-position="right">-->
+     <!--<i class="fa-2x-medium fa fa-truck"></i>-->
+    <!--</ks-nav-item>-->
+    <!--<ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Login" target="_blank" type="button" class="btn btn-primary"></ks-nav-item>-->
+  <!--</c-corporate-header>-->
+   <ks-main-navigation></ks-main-navigation>
     <c-main-content>
       <corporate-ui-light-demo></corporate-ui-light-demo>
     </c-main-content>
-    <ks-corporate-footer>
+    <ks-main-footer>
       <ks-nav-item href="https://www.scania.com/global/en/home/misc/privacy-statement.html" title="Privacy statement" target="_blank">
     </ks-nav-item>
-    </ks-corporate-footer>
+    </ks-main-footer>
   </body>
 </html>
