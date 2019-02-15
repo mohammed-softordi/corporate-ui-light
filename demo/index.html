@@ -21,19 +21,51 @@
     <link rel="import" href="node_modules/corporate-ui-light/main-footer.html">
   </head>
   <body class="app scania">
-  <!--<c-corporate-header site-name="Corporate UI Light" site-url="#" short-name="CUI Light">-->
-    <!--<ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Help" target="_blank" icon-position="right">-->
-     <!--<i class="fa-2x-medium fa fa-truck"></i>-->
-    <!--</ks-nav-item>-->
-    <!--<ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Login" target="_blank" type="button" class="btn btn-primary"></ks-nav-item>-->
-  <!--</c-corporate-header>-->
-   <ks-main-navigation></ks-main-navigation>
+
+   <ks-main-navigation>
+       <ks-main-header site-name="Corporate UI Light" site-url="#" short-name="CUI Light" >
+            <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Help" target="_blank" icon-position="right">
+              <i class="fa-2x-medium fa fa-truck"></i>
+            </ks-nav-item>
+            <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Login" target="_blank"></ks-nav-item>
+      </ks-main-header>
+
+       <primary-menu items='[{"title": "primary22 1", "href": "#mbkdnc11542"}, {"title": "primary55 2", "href": "#osdsjkk2", "active": "true",
+                    "items":[{"title": "submenu 1", "href": "#3"}, {"title": "submenu 2", "href": "#55"}]},
+                    {"title": "primary99 3", "href": "#5", "items":[{"title": "submenu-3", "href": "#73"},
+                    {"title": "submenu 4", "href": "#859"}]},{"title": "primary22 1", "href": "#mbkdnc115423"},
+                    {"title": "primary22 2", "href": "#mbkdnc115425"},{"title": "primary22 5", "href": "#mbkdnc115425"},
+                    {"title": "primary22 3", "href": "#mbkdnc115420o"},{"title": "primary22 6", "href": "#mbkdnc1154g2"}]'>
+       </primary-menu>
+        <secondary-menu>
+            <secondary-menu-item>
+                        <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard"
+                                     title="Get started" target="_blank" type="button" class="btn btn-info btn-lg" >
+                                <i class="fa-2x-medium fa fa-home"></i>
+                        </ks-nav-item>
+               </secondary-menu-item>
+
+               <secondary-menu-item dropdown="true"
+                                    title="Administration"
+                                    items='[{"title": "secondary 2", "href": "#hg6"}, {"title": "secondary 2", "href": "#htit7"}]'>
+               </secondary-menu-item>
+
+               <secondary-menu-item items='[{"title": "secondary 1", "href": "#we6", "target":"_blank"}, {"title": "secondary 2", "href": "#ewe7"}]'></secondary-menu-item>
+        </secondary-menu>
+
+
+       <ks-fullscreen hide-elements='["ks-main-footer", "ks-main-header"]'></ks-fullscreen>
+
+   </ks-main-navigation>
+
     <ks-main-content>
       <corporate-ui-light-demo></corporate-ui-light-demo>
     </ks-main-content>
+
     <ks-main-footer>
       <ks-nav-item href="https://www.scania.com/global/en/home/misc/privacy-statement.html" title="Privacy statement" target="_blank">
     </ks-nav-item>
     </ks-main-footer>
+
   </body>
 </html>
