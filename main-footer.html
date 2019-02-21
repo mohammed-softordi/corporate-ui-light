@@ -102,8 +102,9 @@
 
     </style>
 
-    <footer class="footer ks-corporate-footer container-fluid" hidden="[[hidden]]">
-        <div class="row">
+    <footer class="footer ks-corporate-footer" hidden="[[hidden]]">
+        <div class="container-fluid">
+            <div class="row">
              <div class="col-md-2 col-sm-12 col-xs-12 float-right">
                 <span class="wordmark"></span>
             </div>
@@ -118,7 +119,7 @@
           </p>
             </div>
         </div>
-
+        </div>
     </footer>
 
   </template>
@@ -126,6 +127,7 @@
   <script>
   Polymer({
       is: 'ks-main-footer',
+      behaviors: [CUIBehaviors.GlobalBehavior],
 
       properties: {
           copyright: {
@@ -134,15 +136,7 @@
                   var date = new Date();
                   return "Copyright Scania " + date.getFullYear() + " All rights reserved."
               }
-          },
-          disable: {
-              type: String,
-              value: '',
-              observer: '_onDisableChange'
           }
-      },
-      _onDisableChange: function(){
-          this.hidden = (this.disable === 'true');
       }
   });
   </script>

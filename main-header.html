@@ -10,72 +10,6 @@
       :host {
         display: block;
       }
-      :host ::content .navbar-symbol.should-stick:before {
-        position: fixed;
-        top: 21px;
-        right: 25px;
-      }
-      :host .navbar-default {
-        z-index: 1010;
-      }
-      :host .is-dealer .navbar-header a.dealer {
-        display: inline-block;
-        margin: 20px -15px 20px 15px;
-        position: relative;
-      }
-      :host .is-dealer .navbar-header a.dealer img {
-        height: 28px;
-      }
-      :host .is-dealer .navbar-header a.dealer + .nav-brand {
-        display: none;
-      }
-      :host .is-dealer .navbar-header .navbar-brand:before {
-        display: none;
-      }
-      :host .is-dealer .navbar-header .navbar-symbol {
-        width: 230px;
-      }
-      :host .is-dealer .navbar-header .navbar-symbol:before {
-        background-image: url('assets/images/scania-symbol.png'), url('assets/images/scania-wordmark.svg');
-        background-position: center left,
-        center right;
-        background-size: 46px 46px,
-        170px 28px;
-      }
-      :host a.dealer {
-        display: none;
-      }
-      :host a.dealer img {
-        display: none;
-      }
-      :host a.dealer img[src]:not([src=""]) {
-        display: inline-block;
-      }
-      :host a.dealer img[src]:not([src=""]) + span {
-        display: none;
-      }
-      :host-context(.header-is-sticky) ::content .navbar-symbol.should-stick {
-        width: 40px;
-        height: 37px;
-      }
-      :host-context(.header-is-sticky) ::content .navbar-symbol.should-stick:before {
-        transition: top 100ms ease-in-out;
-        top: 9px;
-      }
-      :host-context(.app) ::content .navbar-symbol.should-stick:before {
-        position: fixed;
-        top: 11px;
-        right: 10px;
-      }
-      :host-context(.header-is-sticky.app) ::content .navbar-symbol.should-stick:before {
-        top: 7px;
-        right: 10px;
-      }
-      @media (min-width: 992px) {
-        :host-context(body.fullscreen) {
-          display: none !important;
-        }
-      }
       @media (max-width: 991px) {
         :host .navbar-default {
           position: fixed;
@@ -96,6 +30,7 @@
         :host .navbar-default .navbar-header[short-name]:not([short-name='']) button {
           font-size: 1.8rem;
         }
+
         :host .navbar-default .navbar-toggle:after {
           display: block;
           content: "";
@@ -107,96 +42,29 @@
         }
       }
     </style>
-    <nav class$="navbar navbar-default{{dealer}}">
+    <nav class="navbar navbar-default">
       <div class="navbar-header" short-name$="{{shortName}}">
-        <template is="dom-if" if="{{hasMainNav}}">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </template>
-        <a href$="{{dealerUrl}}" class="dealer">
-          <img alt$="{{dealerName}}" src$="{{dealerLogo}}">
-          <span>{{dealerName}}</span>
-        </a>
         <a href$="{{siteUrl}}" class="navbar-brand"></a>
         {{siteName}}
-        <a href$="{{siteUrl}}" class$="navbar-symbol {{sticky}}"></a>
+        <a href$="{{siteUrl}}" class="navbar-symbol"></a>
         <nav class="nav navbar-nav navbar-right">
           <content></content>
-
-          <template is="dom-repeat" items="{{items}}">
-            <nav-item props="{{item}}"></nav-item>
-          </template>
         </nav>
       </div>
     </nav>
   </template>
   <script>
   Polymer({
-    is: 'ks-main-header',
+      is: 'ks-main-header',
     properties: {
       siteName: String,
       shortName: String,
-      dealerName: {
-        type: String,
-        observer: 'initDealer'
-      },
-      dealerLogo: {
-        type: String,
-        observer: 'initDealer'
-      },
-      dealerUrl: {
-        type: String,
-        observer: 'initDealer'
-      },
-      dealer: {
-        type: String
-      },
-      variation: 0,
       siteUrl: {
         type: String,
         value: '/'
-      },
-      fullbleed: {
-        type: Boolean,
-        value: true
-      },
-      hasMainNav: {
-        type: Boolean,
-        value: false,
-        observer: 'initHamburger'
-      },
-      sticky: {
-        type: String
-      },
-      items: {
-        type: Array
       }
     },
 
-    attached: function() {
-      this.initDealer();
-      this.setSize();
-
-      window.addEventListener('resize', this.setSize.bind(this));
-    },
-    setSize: function() {
-      this.style.padding = '';
-      if(window.innerWidth < 992) {
-        // TODO - We should use height, but then we need to add flex-grow & flex-shrink
-        this.style.paddingTop = this.querySelector('.navbar-default').offsetHeight + 'px';
-      }
-    },
-    initDealer: function() {
-      this.dealer = '';
-
-      if ((this.dealerName || this.dealerLogo) && this.dealerUrl) {
-        this.dealer = ' is-dealer';
-      }
-    },
     initHamburger: function(state) {
       // Special handling for Firefox 64 if application is using requirejs
       if (state && !window['Collapse']) {

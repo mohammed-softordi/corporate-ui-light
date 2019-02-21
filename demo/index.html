@@ -33,28 +33,29 @@
        <primary-menu items='[{"title": "primary22 1", "href": "#mbkdnc11542"}, {"title": "primary55 2", "href": "#osdsjkk2", "active": "true",
                     "items":[{"title": "submenu 1", "href": "#3"}, {"title": "submenu 2", "href": "#55"}]},
                     {"title": "primary99 3", "href": "#5", "items":[{"title": "submenu-3", "href": "#73"},
-                    {"title": "submenu 4", "href": "#859"}]},{"title": "primary22 1", "href": "#mbkdnc115423"},
+                    {"title": "submenu 4", "href": "#859", "active": "true", "items":[{"title": "submenu-3-2", "href": "#73-2"}]}]},{"title": "primary22 1", "href": "#mbkdnc115423"},
                     {"title": "primary22 2", "href": "#mbkdnc115425"},{"title": "primary22 5", "href": "#mbkdnc115425"},
                     {"title": "primary22 3", "href": "#mbkdnc115420o"},{"title": "primary22 6", "href": "#mbkdnc1154g2"}]'>
        </primary-menu>
         <secondary-menu>
             <secondary-menu-item>
-                        <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard"
-                                     title="Get started" target="_blank" type="button" class="btn btn-info btn-lg" >
-                                <i class="fa-2x-medium fa fa-home"></i>
-                        </ks-nav-item>
-               </secondary-menu-item>
+                <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard"
+                             title="Get started" target="_blank" type="button" class="btn btn-info btn-lg" >
+                        <i class="fa-2x-medium fa fa-home"></i>
+                </ks-nav-item>
+            </secondary-menu-item>
+           <secondary-menu-item dropdown="true"
+                                title="Administration"
+                                items='[{"title": "Administration", "href":"#etry545",
+                                "items":[{"title": "secondary 3", "href": "#hg6"}, {"title": "secondary 4", "href": "#htit7"}]
+                                }]'>
+           </secondary-menu-item>
 
-               <secondary-menu-item dropdown="true"
-                                    title="Administration"
-                                    items='[{"title": "secondary 2", "href": "#hg6"}, {"title": "secondary 2", "href": "#htit7"}]'>
-               </secondary-menu-item>
-
-               <secondary-menu-item items='[{"title": "secondary 1", "href": "#we6", "target":"_blank"}, {"title": "secondary 2", "href": "#ewe7"}]'></secondary-menu-item>
+           <secondary-menu-item items='[{"title": "secondary 1", "href": "#we6", "target":"_blank"}, {"title": "secondary 2", "href": "#ewe7"}]'></secondary-menu-item>
         </secondary-menu>
 
 
-       <ks-fullscreen hide-elements='["ks-main-footer", "ks-main-header"]'></ks-fullscreen>
+       <ks-fullscreen hide-elements='["ks-main-footer", "ks-main-header"]' ></ks-fullscreen>
 
    </ks-main-navigation>
 

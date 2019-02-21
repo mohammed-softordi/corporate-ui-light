@@ -54,6 +54,7 @@
 		expandedColor: undefined,
 		expandedBackColor: undefined,
 		decorator: undefined,
+		hoverTextColor: undefined,
 
 		searchResultColor: '#D9534F',
 		searchResultBackColor: undefined, //'#FFFFFF',
@@ -531,9 +532,14 @@
 				.addClass(node.state.checked ? 'node-checked' : '')
 				.addClass(node.state.disabled ? 'node-disabled': '')
 				.addClass(node.state.selected ? 'node-selected' : '')
-				.addClass(node.searchResult ? 'search-result' : '') 
+				.addClass(node.state.expanded ? 'node-expanded' : '')
+				.addClass(node.searchResult ? 'search-result' : '')
 				.attr('data-nodeid', node.nodeId)
 				.attr('style', _this.buildStyleOverride(node));
+			if(node.selector){
+				treeItem
+					.addClass(node.selector)
+			}
 
 			// Add indent/spacer to mimic tree structure
 			for (var i = 0; i < (level - 1); i++) {
@@ -729,7 +735,11 @@
 				'background-color:' + this.options.onhoverColor + ';' +
 			'}';
 		}
-
+		if (this.options.hoverTextColor) {
+			style += '.node-' + this.elementId + ':not(.node-disabled):hover{' +
+				'color:' + this.options.hoverTextColor + ';' +
+				'}';
+		}
 		return this.css + style;
 	};
 
