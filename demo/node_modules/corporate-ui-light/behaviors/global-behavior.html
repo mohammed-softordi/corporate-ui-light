@@ -15,16 +15,29 @@
       _onDisableChange: function(){
         this.hidden = (this.disable === 'true');
       },
-      conditionalClass: function(className, value) {
-        return value ? className : '';
+      conditionalClass: function(className, obj, property) {
+          if(!obj){
+              return;
+          }
+          if(Array.isArray(obj)){
+              var result = '';
+              obj.forEach(function (item) {
+                  if(obj.hasOwnProperty(property)){
+                      result = obj[property] ? className : '';
+                  }
+              })
+          } else{
+              result = obj[property] ? className : '';
+          }
+        return result;
       },
       conditionalAttr: function(attrValue) {
         return attrValue ? attrValue : '';
       },
-      mergeArray: function(origin, destination) {
-        origin.map(function(item){
-          destination.push(item);
-        });
+      mergeArray: function(source, destination) {
+          source.map(function(item){
+            destination.push(item);
+          });
       },
       renamePropertiy: function(obj, oldProperty, newPredicate, replace){
         if(obj.hasOwnProperty(oldProperty)){
@@ -63,7 +76,21 @@
           }
         }
         return false;
-      }
+      },
+        findByAttr: function(collection, attr) {
+            for (var i in collection) {
+                if (collection[i]['getAttribute'] && collection[i].getAttribute(attr) !== null) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        safeCall: function(element, method, argument){
+            if(!element){
+                return;
+            }
+            element[method](argument);
+        }
     };
 
   </script>

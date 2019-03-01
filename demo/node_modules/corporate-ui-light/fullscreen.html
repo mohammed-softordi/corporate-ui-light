@@ -1,23 +1,26 @@
 <link rel="import" href="../polymer-1.4.0/polymer.html">
 <link rel="import" href="behaviors/global-behavior.html">
-<dom-module id="ks-fullscreen">
 
+<dom-module id="ks-fullscreen">
   <template>
     <style>
         :host .sticky-toolbar {
-            padding: 26px;
+            padding-right: 26px;
             pointer-events: auto;
             position: fixed;
             right: 0;
-            margin-top: 20px;
-            z-index: 10;
+            z-index: 1001;
+            top: 128px;
+        }
+        :host[fullscreen-mode] .sticky-toolbar {
+            top: 56px;
         }
         :host .sticky-toolbar a {
             float: left;
             display: block;
-            width: 50px;
-            height: 50px;
-            padding: 14px;
+            width: 36px;
+            height: 36px;
+            padding: 7px;
             margin: 0;
             z-index: 1000;
             background-color: #041e42;
@@ -52,7 +55,8 @@
         <a on-click="onfullSreenToggled" class="icon-fullscreen"></a>
     </div>
   </template>
-  <script>
+
+<script>
   Polymer({
     is: 'ks-fullscreen',
     behaviors: [CUIBehaviors.GlobalBehavior],
@@ -65,7 +69,6 @@
             }
         }
     },
-
       onfullSreenToggled: function() {
           this.elementsToHide = document.querySelectorAll(this.hideElements.join(', '));
           this.elementsToHide.forEach(function(element){
@@ -74,8 +77,8 @@
                   element.toggleAttribute('hidden');
               }
           });
+          this.toggleAttribute('fullscreen-mode');
       }
-
   });
   </script>
 

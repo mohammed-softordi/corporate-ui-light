@@ -1,6 +1,6 @@
 {
   "name": "corporate-ui-light",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "https://github.com/mohammed-softordi/corporate-ui-light",
   "license": "MIT",
   "ignore": [
@@ -8,7 +8,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "gulpfile.js"
   ],
   "dependencies": {
     "bootstrap": "3.3.5",
@@ -23,5 +24,11 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/mohammed-softordi/corporate-ui-light.git"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-remote-src": "^0.4.4",
+    "gulp-replace": "^1.0.0",
+    "yargs": "^13.2.1"
   }
 }

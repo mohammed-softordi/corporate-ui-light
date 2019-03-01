@@ -1,10 +1,10 @@
 <link rel="import" href="../polymer-1.4.0/polymer.html">
-<link rel="stylesheet" href="https://static.scania.com/resources/icons/font-awesome/5.3.1/css/all.min.css">
-    <link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/vendors/frameworks/bootstrap/3.2.0/dist/css/bootstrap-org.css">
-    <link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/build/global/3.5.0/css/corporate-ui.css">
+<link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome/all.min.css">
+<link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
+
 <dom-module id="ks-nav-item">
   <template>
-
        <style>
           :host {
               display: inline-block;
@@ -13,12 +13,12 @@
 
     <a href="{{href::a}}" target="{{target::a}}" type="{{type::a}}" download="{{download::a}}">
          <template is="dom-if" if="{{iconPosition}}">
-            [[title]]
+            {{title}}
             <content></content>
         </template>
         <template is="dom-if" if="{{!iconPosition}}">
             <content></content>
-            [[title]]
+            {{title}}
         </template>
     </a>
   </template>

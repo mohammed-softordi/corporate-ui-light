@@ -1,8 +1,9 @@
 <link rel="import" href="../polymer-1.4.0/polymer.html">
-<link rel="stylesheet" href="https://static.scania.com/resources/icons/font-awesome/5.3.1/css/all.min.css">
-<link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/vendors/frameworks/bootstrap/3.2.0/dist/css/bootstrap-org.css">
-<link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/build/global/3.5.0/css/corporate-ui.css">
+<link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome/all.min.css">
+<link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
 <link rel="stylesheet" href="../bootstrap-treeview/dist/bootstrap-treeview.min.css">
+<script src="../bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
 
 <dom-module id="ks-device-menu">
 <style>
@@ -44,47 +45,78 @@
         font-family: "Scania Sans ";
         color: #4a8ba4;
         background-color: transparent;
-        border-left: 4px solid #4a8ba4;
+        border-left: 4px solid #d6001c;
     }
     :host .node-ksDeviceMenu.node-expanded {
         font-family: "Scania Sans";
         font-weight: bold;
         color: #041e42;
     }
+    :host #customTemplate {
+        padding-left: 0;
+        cursor: pointer;
+    }
+    :host #customContent {
+        list-style: none;
+    }
+    :host #customTemplate ul {
+        padding-left: 15px;
+        padding-right: 15px;
+        box-shadow: none;
+        border: none;
+        background-color: #f5f5f5;
+    }
+    :host #customTemplate ul > li {
+        display: block;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    :host #customTemplate ul > li > a {
+        text-transform: capitalize;
+    }
 </style>
   <template>
     <div class="visible-xs visible-sm" id="ksDeviceMenu"></div>
+      <ul class="visible-xs visible-sm" id="customTemplate"></ul>
   </template>
-    <script src="../bootstrap-treeview/src/js/bootstrap-treeview.js"></script>
-  <script>
 
+ <script>
   Polymer({
       is: 'ks-device-menu',
       behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.MenuBehavior],
 
       ready: function () {
-          document.addEventListener('custom-content-added', this._buildMenu.bind(this));
+          this.rendered = false;
+          document.addEventListener('custom-content-added', this._applyConstumTemplate.bind(this));
           document.addEventListener('click', this._onClick.bind(this));
-
-          this.scopeSubtree(this.$.ksDeviceMenu, true);
+          this.scopeSubtree(this, true);
+          Polymer.RenderStatus.afterNextRender(this, function () {
+              if(!this.rendered){
+                  this._buildMenu();
+                  this.rendered = true;
+              }
+          }.bind(this));
       },
       _onClick: function (event) {
           var clickOver = event.target,
               parentNode = this.parentNode.classList,
               isOpened = parentNode.contains('navbar-collapse') && parentNode.contains('in'),
               isToggleButton = clickOver.classList.contains('navbar-toggle'),
-              isMenuItem = this.findById(event.path, 'ksDeviceMenu');
+              isMenuItem = this.findById(event.path, 'ksDeviceMenu'),
+              isCustomToggle = this.findByAttr(event.path, 'ks-navigation-toggle');;
 
-          if (isOpened && !isToggleButton && !isMenuItem) {
-              this._toggleCollapse();
+          if (isOpened) {
+              if (!isToggleButton && !isMenuItem || isCustomToggle) {
+                  this._toggleCollapse();
+              }
           }
       },
       _toggleCollapse: function () {
           document.querySelector('button.navbar-toggle').classList.add('collapsed');
           this.parentNode.classList.remove('in');
       },
-      _buildMenu: function (event) {
-          var options = {
+      _menuOption: function(){
+          return {
               showBorder: false,
               color: '#909090',
               hoverTextColor: '#041e42',
@@ -97,21 +129,25 @@
               indentNode: true,
               data: this._formatedNodes(),
               decorator: this._decorate.bind(this),
-              onNodeSelected: this._toggleCollapse.bind(this),
-              customTemplate: event.detail.customContent
+              onNodeSelected: this._toggleCollapse.bind(this)
           };
 
-          $('#ksDeviceMenu').treeview(options);
+      },
+      _buildMenu: function () {
+          $('#ksDeviceMenu').treeview(this._menuOption());
           $('#ksDeviceMenu').treeview('collapseAll', {silent: true});
       },
       _formatedNodes: function () {
-          return this.allMenuItems.map(function(node){
+          this.allMenuItems = this.renamePropertiy(this.allMenuItems, 'state', 'stateName', true);
+          var formatedItems = [];
+          this.allMenuItems.forEach(function(node){
               node = this.renamePropertiy(node, 'items', 'nodes');
               node = this.renamePropertiy(node, 'title', 'text');
               node.selector = 'top-level';
-              return node;
+              formatedItems.push(node);
 
           }, this);
+          return formatedItems;
       },
       _decorate: function (node) {
           node.selectable = node.nodes === undefined;

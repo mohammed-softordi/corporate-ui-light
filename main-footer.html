@@ -1,127 +1,123 @@
-<link rel="stylesheet" href="https://static.scania.com/resources/icons/font-awesome/5.3.1/css/all.min.css">
-    <link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/vendors/frameworks/bootstrap/3.2.0/dist/css/bootstrap-org.css">
-    <link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/build/global/3.5.0/css/corporate-ui.css">
 <link rel="import" href="../polymer-1.4.0/polymer.html">
-<dom-module id="ks-main-footer">
+<link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome/all.min.css">
+<link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
 
+<dom-module id="ks-main-footer">
   <template>
 
     <style>
-:host {
-    display: block;
-}
-:host .float-left{
-    float: left;
-}
-:host .float-right{
-    float: right;
-}
-:host .footer-links {
-    margin: 0;
-    padding: 4px 0;
-}
-
-:host footer {
-    padding: 20px 30px 0px;
-    background-color: #1d1d1b;
-    text-align: left;
-    color: #fff;
-}
-:host .wordmark {
-    float: right;
-    width: 178px;
-    height: 29px;
-    display: inline-block;
-    vertical-align: middle;
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-
-:host .footer-copy-text {
-    color: #97999b;
-    font-size: 10px;
-    padding: 8px 0;
-    margin: 0;
-    letter-spacing: 0.05rem;
-}
-:host ::content ks-nav-item {
-    display: inline-block;
-    padding: 0 21px 0 0;
-    font-size: 1.3rem;
-}
-:host ::content ks-nav-item:first-child a {
-    margin-left: 0;
-}
-:host ::content ks-nav-item a {
-    color: #fff;
-}
-:host ::content ks-nav-item a:hover {
-    text-decoration: underline;
-    color: #fff;
-}
-:host ::content ks-nav-item a:active,
-:host ::content ks-nav-item a:focus {
-    color: #fff;
-}
-:host ::content ks-nav-item a span {
-    color: inherit;
-}
-:host-context(.scania) .wordmark {
-    background-image: url('assets/images/scania-wordmark-white.png');
-    background-image: url('assets/images/scania-wordmark-white.svg');
-}
-:host-context(.app) ::content .footer-links {
-    margin: 0 0 10px 0;
-}
-@media (min-width: 992px) {
-    :host-context(body.fullscreen) {
-        display: none !important;
-    }
-}
-@media (max-width: 991px) {
-    :host footer {
-        padding: 23px 0 0 0;
-        text-align: center;
-    }
-    :host .wordmark {
-        float: none;
-        display: block;
-        margin: auto;
-        padding-bottom: 22px;
-        width: 113px;
-        height: 40px;
-    }
-    :host .footer-copy-text {
-        text-align: center;
-    }
-    :host ::content {
-        padding: 0;
-        display: block;
-    }
-}
-
+        :host {
+            display: block;
+        }
+        :host .float-left {
+            float: left;
+        }
+        :host .float-right {
+            float: right;
+        }
+        :host .footer-links {
+            margin: 0;
+            padding: 4px 0;
+        }
+        :host footer {
+            padding: 20px 30px 0px;
+            background-color: #1d1d1b;
+            text-align: left;
+            color: #fff;
+        }
+        :host .wordmark {
+            float: right;
+            width: 178px;
+            height: 29px;
+            display: inline-block;
+            vertical-align: middle;
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+        :host .footer-copy-text {
+            color: #97999b;
+            font-size: 10px;
+            padding: 8px 0;
+            margin: 0;
+            letter-spacing: 0.05rem;
+        }
+        :host ::content ks-nav-item {
+            display: inline-block;
+            padding: 0 21px 0 0;
+            font-size: 1.3rem;
+        }
+        :host ::content ks-nav-item:first-child a {
+            margin-left: 0;
+        }
+        :host ::content ks-nav-item a {
+            color: #fff;
+        }
+        :host ::content ks-nav-item a:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+        :host ::content ks-nav-item a:active,
+        :host ::content ks-nav-item a:focus {
+            color: #fff;
+        }
+        :host ::content ks-nav-item a span {
+            color: inherit;
+        }
+        :host-context(.scania) .wordmark {
+            background-image: url('assets/images/scania-wordmark-white.png');
+            background-image: url('assets/images/scania-wordmark-white.svg');
+        }
+        :host-context(.app) ::content .footer-links {
+            margin: 0 0 10px 0;
+        }
+        @media (min-width: 992px) {
+            :host-context(body.fullscreen) {
+                display: none !important;
+            }
+        }
+        @media (max-width: 991px) {
+            :host footer {
+                padding: 23px 0 0 0;
+                text-align: center;
+            }
+            :host .wordmark {
+                float: none;
+                display: block;
+                margin: auto;
+                padding-bottom: 22px;
+                width: 113px;
+                height: 40px;
+            }
+            :host .footer-copy-text {
+                text-align: center;
+            }
+            :host ::content {
+                padding: 0;
+                display: block;
+            }
+        }
     </style>
 
     <footer class="footer ks-corporate-footer" hidden="[[hidden]]">
         <div class="container-fluid">
             <div class="row">
-             <div class="col-md-2 col-sm-12 col-xs-12 float-right">
-                <span class="wordmark"></span>
-            </div>
-            <div class="col-md-10 col-sm-12 col-xs-12 float-left">
-                <content select="c-social-media"></content>
-            <nav class="footer-links">
-                <content></content>
-            </nav>
+                 <div class="col-md-2 col-sm-12 col-xs-12 float-right">
+                    <span class="wordmark"></span>
+                </div>
+                <div class="col-md-10 col-sm-12 col-xs-12 float-left">
+                    <content select="c-social-media"></content>
+                    <nav class="footer-links">
+                        <content></content>
+                    </nav>
 
-          <p class="footer-copy-text">
-            <span>&copy;</span> {{copyright}}
-          </p>
+                      <p class="footer-copy-text">
+                        <span>&copy;</span> {{copyright}}
+                      </p>
+                </div>
             </div>
-        </div>
         </div>
     </footer>
-
   </template>
 
   <script>
@@ -132,7 +128,7 @@
       properties: {
           copyright: {
               type: String,
-              value: function() {
+              value: function () {
                   var date = new Date();
                   return "Copyright Scania " + date.getFullYear() + " All rights reserved."
               }

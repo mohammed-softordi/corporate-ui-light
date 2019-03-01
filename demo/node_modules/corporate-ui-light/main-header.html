@@ -1,11 +1,10 @@
-<link rel="stylesheet" href="https://static.scania.com/resources/icons/font-awesome/5.3.1/css/all.min.css">
-    <link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/vendors/frameworks/bootstrap/3.2.0/dist/css/bootstrap-org.css">
-    <link rel="stylesheet" href="https://d31jnweo1ynb8u.cloudfront.net/build/global/3.5.0/css/corporate-ui.css">
 <link rel="import" href="../polymer-1.4.0/polymer.html">
+<link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome/all.min.css">
+<link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
+
 <dom-module id="ks-main-header">
-
   <template>
-
     <style>
       :host {
         display: block;
@@ -30,7 +29,6 @@
         :host .navbar-default .navbar-header[short-name]:not([short-name='']) button {
           font-size: 1.8rem;
         }
-
         :host .navbar-default .navbar-toggle:after {
           display: block;
           content: "";
@@ -53,6 +51,7 @@
       </div>
     </nav>
   </template>
+
   <script>
   Polymer({
       is: 'ks-main-header',
@@ -63,21 +62,7 @@
         type: String,
         value: '/'
       }
-    },
-
-    initHamburger: function(state) {
-      // Special handling for Firefox 64 if application is using requirejs
-      if (state && !window['Collapse']) {
-        this.async(function() {
-          var button = this.querySelector('button')
-          button.onclick = function() {
-            document.querySelector('#main-navigation').classList.toggle('in');
-            document.body.classList.toggle('navigation-open')
-          }
-        });
-      }
     }
-
   });
   </script>
 

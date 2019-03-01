@@ -1,45 +1,60 @@
 <link rel="import" href="../polymer-1.4.0/polymer.html">
 <link rel="import" href="behaviors/menu-behavior.html">
 <link rel="import" href="behaviors/global-behavior.html">
+
 <dom-module id="secondary-menu-item">
-
   <template>
-
     <style>
          :host .dropdown.open .caret {
              transform: rotate(180deg);
+         }
+         :host .navbar-nav .dropdown-menu > li {
+             display: block;
          }
          :host .navbar-nav .dropdown-menu li a {
              padding: 7px 2px;
              text-transform: capitalize;
              color: #555;
          }
+         :host .navbar-nav .dropdown a {
+             cursor: pointer;
+         }
          :host .navbar-nav .dropdown-menu li a:before {
              padding-right: 0;
              padding-left: 0;
          }
+         :host .navbar-nav .dropdown-menu li a:focus, :host .navbar-nav .dropdown-menu li a:hover {
+             color: #041e42;
+         }
     </style>
 
-      <ul class="nav navbar-nav navbar-right">
-          <template is="dom-if" if="[[dropdownMenu]]">
-              <li class="dropdown" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">[[title]]
+    <ul class="nav navbar-nav navbar-right">
+          <template is="dom-if" if="{{dropdownMenu}}">
+              <template is="dom-repeat" items="{{items}}" as="parent">
+              <li class="dropdown">
+              <a class="dropdown-toggle dropdown-trigger" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  {{parent.title}}
                   <span class="caret"></span>
               </a>
 
                 <ul class="dropdown-menu">
-               <template is="dom-repeat" items="{{items}}">
-                 <li class$="{{conditionalClass('active', item.active)}}">
-                    <a href="[[item.href]]" target="{{conditionalAttr(item.target)}}">[[item.title]]</a>
+               <template is="dom-repeat" items="{{parent.items}}">
+                 <li class$="{{conditionalClass('active', item, 'active')}}">
+                    <a href="{{item.href}}" target="{{conditionalAttr(item.target)}}" on-click="onDropdownItemActive">
+                        {{item.title}}
+                    </a>
                 </li>
               </template>
               </ul>
             </li>
           </template>
-          <template is="dom-if" if="[[!dropdownMenu]]">
+          </template>
+          <template is="dom-if" if="{{!dropdownMenu}}">
                <template is="dom-repeat" items="{{items}}">
-                 <li class$="{{conditionalClass('active', item.active)}}">
-                    <a href="[[item.href]]" target="{{conditionalAttr(item.target)}}">[[item.title]]</a>
+                 <li class$="{{conditionalClass('active', item, 'active')}}">
+                    <a href="{{item.href}}" target="{{conditionalAttr(item.target)}}">
+                        {{item.title}}
+                    </a>
                 </li>
               </template>
           </template>
@@ -47,42 +62,34 @@
           <content></content>
         </li>
       </ul>
-
-
   </template>
 
   <script>
   Polymer({
       is: 'secondary-menu-item',
       behaviors: [CUIBehaviors.MenuBehavior, CUIBehaviors.GlobalBehavior],
+
       properties: {
           dropdown: {
               type: String,
               value: '',
-              observer: '_onDropdownActive'
+              observer: '_dropdown'
           }
       },
-      attached: function () {
-          this.setActiveMenu('.secondary-menu-item.active');
-          var customContent = this.$.customContent;
-          if(customContent.innerHTML && customContent.innerHTML.trim() !== ''){
-              var content = $(customContent).clone();
-              content.addClass('list-group-item node-ksDeviceMenu');
-              document.dispatchEvent(new CustomEvent('custom-content-added', {detail: {customContent: content, bubbles: false, composed: true}}));
+      created: function () {
+          var textTemplate= document.querySelector('secondary-menu-item:not([dropdown]) li#customContent');
+          if(textTemplate && textTemplate.innerHTML.trim() !== ''){
+              var customContent = $(textTemplate.innerHTML).clone();
+              document.dispatchEvent(new CustomEvent('custom-content-added', {detail: {customContent: customContent, bubbles: false, composed: true}}));
           }
-
-          this.identification.push( {id: 'secondary-menu-item'})
       },
-      onToggleSubmenu: function(event){
-          var activeSubmenu = this.getActiveSubmenu(event.target.parentNode.title, event.target.parentNode.id);
-          this.resetMenu('.subnav.open', '.secondary-menu-item');
-          activeSubmenu.classList.add('open');
-          event.target.parentNode.toggleClass('active');
-      },
-      _onDropdownActive: function () {
+      _dropdown: function () {
           this.dropdownMenu = (this.dropdown === 'true');
+      },
+      onDropdownItemActive: function(event){
+          this.toggle(event.target.parentNode);
+          this.querySelector('.dropdown-toggle').parentNode.classList.add('active');
       }
-
   });
   </script>
 

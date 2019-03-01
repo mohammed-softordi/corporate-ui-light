@@ -1,9 +1,9 @@
 <link rel="import" href="../polymer-1.4.0/polymer.html">
 <link rel="import" href="behaviors/menu-behavior.html">
 <link rel="import" href="behaviors/global-behavior.html">
+
 <dom-module id="primary-menu">
   <template>
-
     <style>
         :host .main-menu:not(.--jsfied) {
             overflow-x: auto;
@@ -15,38 +15,41 @@
         :host .more.open .caret {
             transform: rotate(180deg);
         }
-     :host .navbar-nav ::content a {
-         line-height: 20px;
-         position: relative;
-         display: block;
-         color: #909090;
-     }
-     :host .navbar-nav .active ::content a,
-     :host .navbar-nav ::content a:hover,
-     :host .navbar-nav ::content a:focus {
-         color: #041e42;
-     }
-     :host .navbar-nav {
-         margin-bottom: 0;
-     }
-     :host .more-dropdown {
-         z-index: 1001;
-     }
-     :host .navbar-nav > .subnav.dropdown.open {
-         position: static;
-     }
-     :host .navbar-nav > .subnav.dropdown.open .dropdown-menu {
-         width: 100%;
-         left: 0;
-         right: 0;
-         top: 100%;
-         background-color: #f5f5f5;
-         min-height: 0;
-         border-bottom: 1px solid #d3d3d3;
-         padding: 0;
-         -webkit-box-shadow: none;
-         box-shadow: none;
-     }
+        :host .navbar-nav ::content a {
+             line-height: 20px;
+             position: relative;
+             display: block;
+             color: #909090;
+        }
+        :host .navbar-nav .active ::content a,
+        :host .navbar-nav ::content a:hover,
+        :host .navbar-nav ::content a:focus {
+             color: #041e42;
+        }
+        :host .navbar-nav {
+             margin-bottom: 0;
+        }
+        :host .more-dropdown {
+             z-index: 1001;
+        }
+        :host .more-trigger  {
+            cursor: pointer;
+        }
+        :host .navbar-nav > .subnav.dropdown.open {
+             position: static;
+        }
+        :host .navbar-nav > .subnav.dropdown.open .dropdown-menu {
+             width: 100%;
+             left: 0;
+             right: 0;
+             top: 100%;
+             background-color: #f5f5f5;
+             min-height: 0;
+             border-bottom: 1px solid #d3d3d3;
+             padding: 0;
+             -webkit-box-shadow: none;
+             box-shadow: none;
+        }
         :host .subnav .dropdown-menu .caption {
             font-family: "Scania Sans Bold";
             color: #041e42;
@@ -57,70 +60,78 @@
             padding-right: 30px;
             display: inline-block;
             border-right: 1px solid #e2e2e2;
-            /*vertical-align: text-top;*/
         }
 
-     :host .navbar-nav .subnav .dropdown-menu li ::content a:first-child:before {
-         padding-right: 0;
-     }
-     :host .navbar-nav > li + li > ::content a:before{
+        :host .navbar-nav .subnav .dropdown-menu li ::content a:first-child:before {
+             padding-right: 0;
+        }
+        :host .navbar-nav > li + li > ::content a:before{
             border-left: 1px solid #e2e2e2;
             padding: 0 15px;
-     }
+        }
 
         :host .navbar-nav .dropdown-menu li ::content a {
-         padding: 7px 2px;
-         color: #555;
-         text-transform: capitalize;
-         font-weight: normal;
-     }
+             padding: 7px 2px;
+             color: #555;
+             text-transform: capitalize;
+             font-weight: normal;
+        }
+        :host .navbar-nav .subnav .dropdown-menu li ::content a:hover, :host .navbar-nav .subnav .dropdown-menu li ::content a:focus,
+        :host .navbar-nav .subnav .dropdown-menu li.active, :host .navbar-nav .subnav .dropdown-menu li ::content a:visited {
+            border-bottom: 2px solid #d6001c;
+        }
+        :host .navbar-nav .dropdown-menu li ::content a:hover, :host .navbar-nav .dropdown-menu li ::content a:focus {
+            color: #041e42;
+        }
         :host .navbar-nav .dropdown-menu li a:before {
             padding-right: 0;
             padding-left: 0;
         }
-     :host .navbar-nav .subnav .dropdown-menu li ::content a:before, :host .navbar-nav .subnav .dropdown-menu li ::content a:after {
-         content: "";
-         padding: 0 10px;
-     }
-     :host .navbar-nav .dropdown-menu li ::content a:before {
-         content: "";
-         padding: 15px;
-     }
-
+        :host .navbar-nav .subnav .dropdown-menu li ::content a:before, :host .navbar-nav .subnav .dropdown-menu li ::content a:after {
+             content: "";
+             padding: 0 10px;
+        }
+        :host .navbar-nav .dropdown-menu li ::content a:before {
+             content: "";
+             padding: 15px;
+        }
     </style>
 
-    <ul class="nav navbar-nav main-menu">
+     <ul class="nav navbar-nav main-menu">
          <template is="dom-repeat" items="{{items}}">
-             <li class="main-menu-item">
-              <ks-nav-item href="[[item.href]]" title="[[item.title]]" target="[[item.target]]" id="[[index]]"
-                  class$="{{conditionalClass('active', item.active)}}" icon-position="right" on-click="onToggleSubmenu">
+             <li class$="main-menu-item {{conditionalClass('active', item, 'active')}}" >
+              <ks-nav-item href="{{item.href}}" title="{{item.title}}" target="{{item.target}}" id="[[index]]"
+                           icon-position="right" on-click="onToggleSubmenu">
               </ks-nav-item>
             </li>
           </template>
         <li class="dropdown more visible-md visible-lg">
-              <a href="#" class="dropdown-toggle more-trigger" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  [[moreText]]
+              <a class="dropdown-toggle more-trigger dropdown-trigger" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  {{moreText}}
                   <span class="caret"></span>
               </a>
                 <ul class="dropdown-menu more-dropdown">
                    <template is="dom-repeat" items="{{items}}">
-                         <li class$="{{conditionalClass('active', item.active)}}">
-                            <a href="[[item.href]]" target="{{conditionalAttr(item.target)}}">[[item.title]]</a>
+                         <li class$="{{conditionalClass('active', item, 'active')}}">
+                              <ks-nav-item href="[[item.href]]" title="[[item.title]]"
+                                           target="[[item.target]]" id="[[index]]" on-click="onDropdownItemActive"></ks-nav-item>
+                             <!--<a href="{{item.href}}" target="{{conditionalAttr(item.target)}}" on-click="onDropdownItemActive">{{item.title}}</a>-->
                         </li>
                   </template>
               </ul>
         </li>
     </ul>
-      <div class="nav navbar-nav">
+    <div class="nav navbar-nav">
           <template is="dom-repeat" items="{{items}}" as="primary" index-as="primary-id">
                 <div class="dropdown subnav" id="[[subMenuHash(primary.title)]]-[[primary-id]]">
                     <ul class="dropdown-menu">
-                        <li class="caption">[[primary.title]]</li>
+                        <template is="dom-if" if="[[hasSubmenu(primary)]]">
+                            <li class="caption">[[primary.title]]</li>
+                        </template>
+
                         <template is="dom-repeat" items="{{primary.items}}" as="subItem">
-                             <li>
-                                <ks-nav-item href="[[subItem.href]]" title="[[subItem.title]]" target="[[subItem.target]]"
-                                    class$="{{conditionalClass('active', item.active)}}">
-                                </ks-nav-item>
+                             <li class$="{{conditionalClass('active', subItem, 'active')}}">
+                                <ks-nav-item href="[[subItem.href]]" title="[[subItem.title]]" target="[[subItem.target]]"></ks-nav-item>
                              </li>
                         </template>
                     </ul>
@@ -141,21 +152,27 @@
       behaviors: [CUIBehaviors.MenuBehavior, CUIBehaviors.GlobalBehavior],
 
       attached: function () {
-         this.setActiveMenu('.primary-menu.active');
-          this.doAdapt();
+          this.init = false;
           window.addEventListener('resize', this.doAdapt.bind(this));
           window.addEventListener('scroll', this.doAdapt.bind(this));
           this.identification.push({id: 'primary-menu'})
       },
-      onToggleSubmenu: function(event){
-          var activeSubmenu = this.getActiveSubmenu(event.target.parentNode.title, event.target.parentNode.id);
-          this.resetMenu('.subnav.open', '.primary-menu');
-
-          activeSubmenu.classList.add('open');
-          event.target.parentNode.toggleClass('active');
+      attributeChanged: function (name, type) {
+          Polymer.RenderStatus.afterNextRender(this, function () {
+              if(!this.init){
+                  this._initMenu('.primary-menu.active a');
+                  this.init = true;
+              }
+              this.doAdapt();
+          }.bind(this));
       },
-
-
+      onToggleSubmenu: function(event){
+          this.toggle(event.target.parentNode, true);
+      },
+      onDropdownItemActive: function(event){
+          this.toggle(event.target.parentNode, true);
+          this.querySelector('.more-trigger').parentNode.classList.add('active');
+      },
       doAdapt: function () {
           var moreDropdown = this.querySelector('.more-dropdown'),
                   mainMenu = this.querySelector('.main-menu'),
@@ -164,6 +181,7 @@
                   allItems = mainMenu.querySelectorAll('li'),
                   moreLi = this.querySelector('.more'),
                   secondaryMenu = this.parentNode.querySelector('secondary-menu');
+
           mainMenu.classList.add('--jsfied');
 
           // reveal all items for the calculation
@@ -199,6 +217,9 @@
                   }
               })
           }
+      },
+      hasSubmenu: function (menuItem){
+          return (menuItem.items && menuItem.items.length > 0);
       }
   });
   </script>
