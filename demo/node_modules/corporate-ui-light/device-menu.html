@@ -99,11 +99,11 @@
       },
       _onClick: function (event) {
           var clickOver = event.target,
-              parentNode = this.parentNode.classList,
-              isOpened = parentNode.contains('navbar-collapse') && parentNode.contains('in'),
-              isToggleButton = clickOver.classList.contains('navbar-toggle'),
-              isMenuItem = this.findById(event.path, 'ksDeviceMenu'),
-              isCustomToggle = this.findByAttr(event.path, 'ks-navigation-toggle');;
+                  parentNode = this.parentNode.classList,
+                  isOpened = parentNode.contains('navbar-collapse') && parentNode.contains('in'),
+                  isToggleButton = clickOver.classList.contains('navbar-toggle'),
+                  isMenuItem = this.findById(event.path, 'ksDeviceMenu') || this.findById(event.path, 'customTemplate'),
+                  isCustomToggle = this.findByAttr(event.path, 'ks-navigation-toggle');
 
           if (isOpened) {
               if (!isToggleButton && !isMenuItem || isCustomToggle) {
@@ -114,6 +114,9 @@
       _toggleCollapse: function () {
           document.querySelector('button.navbar-toggle').classList.add('collapsed');
           this.parentNode.classList.remove('in');
+      },
+      _applyConstumTemplate: function (event) {
+          event.detail.customContent.appendTo(this.$.customTemplate);
       },
       _menuOption: function(){
           return {

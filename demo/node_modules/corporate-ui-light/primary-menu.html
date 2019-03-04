@@ -16,39 +16,43 @@
             transform: rotate(180deg);
         }
         :host .navbar-nav ::content a {
-             line-height: 20px;
-             position: relative;
-             display: block;
-             color: #909090;
+            line-height: 20px;
+            position: relative;
+            display: block;
+            color: #909090;
         }
         :host .navbar-nav .active ::content a,
         :host .navbar-nav ::content a:hover,
-        :host .navbar-nav ::content a:focus {
-             color: #041e42;
+        :host .navbar-nav ::content a:focus,
+        :host .navbar-nav .dropdown-menu li.active ::content a,
+        :host .navbar-nav .dropdown-menu li ::content a:hover,
+        :host .navbar-nav .dropdown-menu li ::content a:focus{
+            color: #041e42;
         }
         :host .navbar-nav {
-             margin-bottom: 0;
+            margin-bottom: 0;
         }
         :host .more-dropdown {
-             z-index: 1001;
+            z-index: 11;
         }
         :host .more-trigger  {
             cursor: pointer;
         }
         :host .navbar-nav > .subnav.dropdown.open {
-             position: static;
+            position: static;
         }
         :host .navbar-nav > .subnav.dropdown.open .dropdown-menu {
-             width: 100%;
-             left: 0;
-             right: 0;
-             top: 100%;
-             background-color: #f5f5f5;
-             min-height: 0;
-             border-bottom: 1px solid #d3d3d3;
-             padding: 0;
-             -webkit-box-shadow: none;
-             box-shadow: none;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 100%;
+            background-color: #f5f5f5;
+            min-height: 0;
+            border-bottom: 1px solid #d3d3d3;
+            padding: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            z-index: 10;
         }
         :host .subnav .dropdown-menu .caption {
             font-family: "Scania Sans Bold";
@@ -60,10 +64,11 @@
             padding-right: 30px;
             display: inline-block;
             border-right: 1px solid #e2e2e2;
+            /*vertical-align: text-top;*/
         }
 
         :host .navbar-nav .subnav .dropdown-menu li ::content a:first-child:before {
-             padding-right: 0;
+            padding-right: 0;
         }
         :host .navbar-nav > li + li > ::content a:before{
             border-left: 1px solid #e2e2e2;
@@ -71,10 +76,14 @@
         }
 
         :host .navbar-nav .dropdown-menu li ::content a {
-             padding: 7px 2px;
-             color: #555;
-             text-transform: capitalize;
-             font-weight: normal;
+            padding: 7px 2px;
+            color: #555;
+            text-transform: capitalize;
+            font-weight: normal;
+        }
+        :host .navbar-nav .dropdown-menu li ::content a{
+            text-transform: uppercase;
+            font-weight: bold;
         }
         :host .navbar-nav .subnav .dropdown-menu li ::content a:hover, :host .navbar-nav .subnav .dropdown-menu li ::content a:focus,
         :host .navbar-nav .subnav .dropdown-menu li.active, :host .navbar-nav .subnav .dropdown-menu li ::content a:visited {
@@ -88,12 +97,12 @@
             padding-left: 0;
         }
         :host .navbar-nav .subnav .dropdown-menu li ::content a:before, :host .navbar-nav .subnav .dropdown-menu li ::content a:after {
-             content: "";
-             padding: 0 10px;
+            content: "";
+            padding: 0 10px;
         }
         :host .navbar-nav .dropdown-menu li ::content a:before {
-             content: "";
-             padding: 15px;
+            content: "";
+            padding: 15px;
         }
     </style>
 
@@ -155,7 +164,8 @@
           this.init = false;
           window.addEventListener('resize', this.doAdapt.bind(this));
           window.addEventListener('scroll', this.doAdapt.bind(this));
-          this.identification.push({id: 'primary-menu'})
+          this.identification.push({id: 'primary-menu'});
+          this.doAdapt();
       },
       attributeChanged: function (name, type) {
           Polymer.RenderStatus.afterNextRender(this, function () {
@@ -213,7 +223,7 @@
           else {
               moreItems.forEach(function(item, i){
                   if(!hiddenItems.includes(i)) {
-                    item.classList.add('hidden')
+                      item.classList.add('hidden')
                   }
               })
           }
