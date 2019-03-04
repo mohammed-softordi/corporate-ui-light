@@ -175,6 +175,11 @@
                   this.init = true;
               }
               this.doAdapt();
+              var moreActiveItems = this.querySelector('.more-dropdown li.active:not(.hidden)');
+              //Set more menu to be active
+              if(moreActiveItems){
+                  this._setMoreMenuToActive();
+              }
           }.bind(this));
       },
       onToggleSubmenu: function(event){
@@ -192,17 +197,11 @@
                   mainMenu = this.querySelector('.main-menu'),
                   mainMenuItems = this.querySelectorAll('.main-menu-item'),
                   moreItems = moreDropdown.querySelectorAll('li'),
-                  moreActiveItems = moreDropdown.querySelector('.active'),
                   allItems = mainMenu.querySelectorAll('li'),
                   moreLi = this.querySelector('.more'),
                   secondaryMenu = this.parentNode.querySelector('secondary-menu');
 
           mainMenu.classList.add('--jsfied');
-
-          //Set more menu to be active
-          if(moreActiveItems){
-              this._setMoreMenuToActive();
-          }
 
           // reveal all items for the calculation
           allItems.forEach(function(item){
