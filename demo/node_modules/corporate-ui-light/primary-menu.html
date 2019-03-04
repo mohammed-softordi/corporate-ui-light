@@ -24,9 +24,9 @@
         :host .navbar-nav .active ::content a,
         :host .navbar-nav ::content a:hover,
         :host .navbar-nav ::content a:focus,
-        :host .navbar-nav .dropdown-menu li.active ::content a,
-        :host .navbar-nav .dropdown-menu li ::content a:hover,
-        :host .navbar-nav .dropdown-menu li ::content a:focus{
+        :host .navbar-nav .more .dropdown-menu li.active ::content a,
+        :host .navbar-nav .more .dropdown-menu li ::content a:hover,
+        :host .navbar-nav .more .dropdown-menu li ::content a:focus{
             color: #041e42;
         }
         :host .navbar-nav {
@@ -81,9 +81,10 @@
             text-transform: capitalize;
             font-weight: normal;
         }
-        :host .navbar-nav .dropdown-menu li ::content a{
+        :host .navbar-nav .more .dropdown-menu li ::content a{
             text-transform: uppercase;
-            font-weight: bold;
+            font-weight: 700;
+            color: #909090;
         }
         :host .navbar-nav .subnav .dropdown-menu li ::content a:hover, :host .navbar-nav .subnav .dropdown-menu li ::content a:focus,
         :host .navbar-nav .subnav .dropdown-menu li.active, :host .navbar-nav .subnav .dropdown-menu li ::content a:visited {
@@ -181,6 +182,9 @@
       },
       onDropdownItemActive: function(event){
           this.toggle(event.target.parentNode, true);
+          this._setMoreMenuToActive();
+      },
+      _setMoreMenuToActive: function(){
           this.querySelector('.more-trigger').parentNode.classList.add('active');
       },
       doAdapt: function () {
@@ -188,11 +192,17 @@
                   mainMenu = this.querySelector('.main-menu'),
                   mainMenuItems = this.querySelectorAll('.main-menu-item'),
                   moreItems = moreDropdown.querySelectorAll('li'),
+                  moreActiveItems = moreDropdown.querySelector('.active'),
                   allItems = mainMenu.querySelectorAll('li'),
                   moreLi = this.querySelector('.more'),
                   secondaryMenu = this.parentNode.querySelector('secondary-menu');
 
           mainMenu.classList.add('--jsfied');
+
+          //Set more menu to be active
+          if(moreActiveItems){
+              this._setMoreMenuToActive();
+          }
 
           // reveal all items for the calculation
           allItems.forEach(function(item){

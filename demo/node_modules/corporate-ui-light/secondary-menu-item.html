@@ -23,7 +23,11 @@
              padding-right: 0;
              padding-left: 0;
          }
-         :host .navbar-nav .dropdown-menu li a:focus, :host .navbar-nav .dropdown-menu li a:hover {
+         :host .navbar-nav .dropdown-menu li a:focus,
+         :host .navbar-nav .dropdown-menu li a:hover,
+         :host .navbar-nav .dropdown-menu li a:visited,
+         :host .navbar-nav .dropdown-menu li.active a {
+             /*border-bottom: 2px solid #d6001c;*/
              color: #041e42;
          }
     </style>
@@ -37,7 +41,7 @@
                   <span class="caret"></span>
               </a>
 
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu secondary-dropdown">
                <template is="dom-repeat" items="{{parent.items}}">
                  <li class$="{{conditionalClass('active', item, 'active')}}">
                     <a href="{{item.href}}" target="{{conditionalAttr(item.target)}}" on-click="onDropdownItemActive">
@@ -77,17 +81,32 @@
           }
       },
       created: function () {
+          this.init = false;
           var textTemplate= document.querySelector('secondary-menu-item:not([dropdown]) li#customContent');
           if(textTemplate && textTemplate.innerHTML.trim() !== ''){
               var customContent = $(textTemplate.innerHTML).clone();
               document.dispatchEvent(new CustomEvent('custom-content-added', {detail: {customContent: customContent, bubbles: false, composed: true}}));
           }
       },
+      attributeChanged: function (name, type) {
+          Polymer.RenderStatus.afterNextRender(this, function () {
+              if(!this.init){
+                  var secondaryDropdownActiveItems = this.querySelector('.secondary-menu-item.secondary-dropdown li.active');
+                  if(secondaryDropdownActiveItems){
+                      this._setDropdownToActive();
+                  }
+                  this.init = true;
+              }
+          }.bind(this));
+      },
       _dropdown: function () {
           this.dropdownMenu = (this.dropdown === 'true');
       },
       onDropdownItemActive: function(event){
           this.toggle(event.target.parentNode);
+          this._setDropdownToActive();
+      },
+      _setDropdownToActive: function(){
           this.querySelector('.dropdown-toggle').parentNode.classList.add('active');
       }
   });
