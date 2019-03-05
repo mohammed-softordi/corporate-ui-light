@@ -10,19 +10,12 @@
           type: String,
           value: '',
           observer: '_onDisableChange'
-        },
-          disableMenu: {
-              type: String,
-              value: '',
-              observer: '_onDisableMenu'
-          }
+        }
       },
+
       _onDisableChange: function(){
         this.hidden = (this.disable === 'true');
       },
-        _onDisableMenu: function(){
-            this.hideMenu = (this.disableMenu === '' || this.disableMenu === 'true' );
-        },
       conditionalClass: function(className, obj, property) {
           if(!obj){
               return;
