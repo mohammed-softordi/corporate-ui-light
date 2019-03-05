@@ -107,7 +107,7 @@
         }
     </style>
 
-     <ul class="nav navbar-nav main-menu">
+     <ul class="nav navbar-nav main-menu" hidden="{{hideMenu}}">
          <template is="dom-repeat" items="{{items}}">
              <li class$="main-menu-item {{conditionalClass('active', item, 'active')}}" >
               <ks-nav-item href="{{item.href}}" title="{{item.title}}" target="{{item.target}}" id="[[index]]"
@@ -131,7 +131,7 @@
               </ul>
         </li>
     </ul>
-    <div class="nav navbar-nav">
+    <div class="nav navbar-nav" hidden="{{hideMenu}}">
           <template is="dom-repeat" items="{{items}}" as="primary" index-as="primary-id">
                 <div class="dropdown subnav" id="[[subMenuHash(primary.title)]]-[[primary-id]]">
                     <ul class="dropdown-menu">
@@ -175,11 +175,6 @@
                   this.init = true;
               }
               this.doAdapt();
-              var moreActiveItems = this.querySelector('.more-dropdown li.active:not(.hidden)');
-              //Set more menu to be active
-              if(moreActiveItems){
-                  this._setMoreMenuToActive();
-              }
           }.bind(this));
       },
       onToggleSubmenu: function(event){
@@ -197,11 +192,17 @@
                   mainMenu = this.querySelector('.main-menu'),
                   mainMenuItems = this.querySelectorAll('.main-menu-item'),
                   moreItems = moreDropdown.querySelectorAll('li'),
+                  moreActiveItems = moreDropdown.querySelector('.active'),
                   allItems = mainMenu.querySelectorAll('li'),
                   moreLi = this.querySelector('.more'),
                   secondaryMenu = this.parentNode.querySelector('secondary-menu');
 
           mainMenu.classList.add('--jsfied');
+
+          //Set more menu to be active
+          if(moreActiveItems){
+              this._setMoreMenuToActive();
+          }
 
           // reveal all items for the calculation
           allItems.forEach(function(item){

@@ -7,6 +7,13 @@
 
 <dom-module id="ks-device-menu">
 <style>
+    :host {
+        overflow-y: scroll;
+        height: 90vh;
+        position: fixed;
+        width: 100%;
+        background-color: #f5f5f5;
+    }
     :host .node-ksDeviceMenu {
         font-family: "Scania Sans";
         background-color: #f5f5f5;
@@ -98,17 +105,12 @@
           }.bind(this));
       },
       _onClick: function (event) {
-          var clickOver = event.target,
-                  parentNode = this.parentNode.classList,
+          var parentNode = this.parentNode.classList,
                   isOpened = parentNode.contains('navbar-collapse') && parentNode.contains('in'),
-                  isToggleButton = clickOver.classList.contains('navbar-toggle'),
-                  isMenuItem = this.findById(event.path, 'ksDeviceMenu') || this.findById(event.path, 'customTemplate'),
                   isCustomToggle = this.findByAttr(event.path, 'ks-navigation-toggle');
 
-          if (isOpened) {
-              if (!isToggleButton && !isMenuItem || isCustomToggle) {
-                  this._toggleCollapse();
-              }
+          if (isOpened && isCustomToggle) {
+              this._toggleCollapse();
           }
       },
       _toggleCollapse: function () {
