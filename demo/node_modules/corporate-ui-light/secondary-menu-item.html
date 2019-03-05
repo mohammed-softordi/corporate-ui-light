@@ -23,6 +23,9 @@
              padding-right: 0;
              padding-left: 0;
          }
+         /*:host .navbar-nav .dropdown-menu li a:focus, :host .navbar-nav .dropdown-menu li a:hover {*/
+             /*color: #041e42;*/
+         /*}*/
          :host .navbar-nav .dropdown-menu li a:focus,
          :host .navbar-nav .dropdown-menu li a:hover,
          :host .navbar-nav .dropdown-menu li a:visited,
@@ -30,9 +33,10 @@
              /*border-bottom: 2px solid #d6001c;*/
              color: #041e42;
          }
+
     </style>
 
-    <ul class="nav navbar-nav navbar-right" hidden="{{hideMenu}}">
+    <ul class="nav navbar-nav navbar-right">
           <template is="dom-if" if="{{dropdownMenu}}">
               <template is="dom-repeat" items="{{items}}" as="parent">
               <li class="dropdown">
@@ -88,6 +92,7 @@
           }
       },
       attributeChanged: function (name, type) {
+          console.log('Secondary hideMenu', this.hideMenu);
           Polymer.RenderStatus.afterNextRender(this, function () {
               var secondaryDropdownActiveItems = this.querySelector('.secondary-menu-item.secondary-dropdown li.active');
               if(secondaryDropdownActiveItems){

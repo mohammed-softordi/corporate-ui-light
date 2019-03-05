@@ -121,7 +121,7 @@
     </div>
 
     <div class="collapse navbar-collapse" id="mainNav">
-        <div class="visible-md visible-lg main-nav">
+        <div class="visible-md visible-lg main-nav" hidden="{{hideMenu}}">
             <content select="primary-menu"></content>
             <content select="secondary-menu"></content>
         </div>
@@ -136,7 +136,7 @@
   <script>
   Polymer({
       is: 'ks-main-navigation',
-      behaviors: [CUIBehaviors.GlobalBehavior],
+      behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.MenuBehavior],
 
       attached: function () {
           this.mainHeader = this.querySelector('ks-main-header');
