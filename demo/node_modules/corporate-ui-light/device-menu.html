@@ -7,13 +7,6 @@
 
 <dom-module id="ks-device-menu">
 <style>
-    :host {
-        overflow-y: scroll;
-        height: 90vh;
-        position: fixed;
-        width: 100%;
-        background-color: #f5f5f5;
-    }
     :host .node-ksDeviceMenu {
         font-family: "Scania Sans";
         background-color: #f5f5f5;
@@ -80,6 +73,15 @@
     }
     :host #customTemplate ul > li > a {
         text-transform: capitalize;
+    }
+    @media (max-width: 991px) {
+        :host {
+            overflow-y: scroll;
+            max-height: 90vh;
+            position: fixed;
+            width: 100%;
+            background-color: #f5f5f5;
+        }
     }
 </style>
   <template>

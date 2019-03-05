@@ -11,13 +11,22 @@
             return [];
           },
           observer: '_itemAdded'
-        }
+        },
+          disableMenu: {
+              type: String,
+              value: '',
+              observer: '_onDisableMenu'
+          }
       },
-      identifier: 'MenuBehavior',
-      secondaryCustomContent:[],
       identification: [],
       allMenuItems: [],
 
+      _onDisableMenu: function(){
+            this.hideMenu = (this.disableMenu === '' || this.disableMenu === 'true' );
+            if(this.hideMenu){
+                document.body.removeAttribute('ks-primary-submenu-open');
+            }
+      },
       subMenuHash: function(title) {
         var matcher = /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g;
         if(title) {
@@ -35,7 +44,7 @@
           if(notify){
               document.body.removeAttribute('ks-primary-submenu-open');
           }
-          if(activeSubmenu) {
+          if(activeSubmenu && activeSubmenu.querySelector('li') !== null) {
               activeSubmenu.classList.add('open');
               if(notify){
                   document.body.setAttribute('ks-primary-submenu-open', '');
@@ -69,18 +78,7 @@
             var activeSubmenu = this.getActiveSubmenu(parentNode.title, parentNode.id);
             this.resetMenu('.subnav.open');
             this.toggleSubmenu(parentNode, activeSubmenu, true);
-        },
-      registered: function() {
-        var registeredElement = [];
-        registeredElement = this.behaviors.map(function(behavior) {
-          if(behavior.identifier == 'MenuBehavior'){
-            return behavior.identification;
-          }
-        });
-        if(registeredElement.length > 0){
-//          this.registeredMenuComponents = registeredElement;
         }
-      }
     };
 
   </script>
