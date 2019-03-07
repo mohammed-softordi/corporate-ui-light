@@ -1,11 +1,13 @@
 <link rel="import" href="../polymer-1.4.0/polymer.html">
 <link rel="import" href="behaviors/global-behavior.html">
 
+<script src="polyfill/foreach.js"></script>
+
 <dom-module id="ks-fullscreen">
   <template>
     <style>
         :host .sticky-toolbar {
-            padding-right: 26px;
+            margin-right: 26px;
             pointer-events: auto;
             position: fixed;
             right: 0;
@@ -13,14 +15,14 @@
             top: 128px;
         }
         :host[fullscreen-mode] .sticky-toolbar {
-            top: 56px;
+            top: 5px;
         }
         :host .sticky-toolbar a {
             float: left;
             display: block;
-            width: 36px;
-            height: 36px;
-            padding: 7px;
+            width: 30px;
+            height: 30px;
+            padding: 3px;
             margin: 0;
             z-index: 1000;
             background-color: #041e42;
@@ -52,7 +54,7 @@
         }
     </style>
     <div class="hidden-xs sticky-toolbar" hidden="[[hidden]]">
-        <a on-click="onfullSreenToggled" class="icon-fullscreen"></a>
+        <a on-click="onfullSreenToggled" class="icon-fullscreen" title="[[title]]"></a>
     </div>
   </template>
 
@@ -67,12 +69,14 @@
             value: function() {
                 return [];
             }
-        }
+        },
+        title: String
     },
       onfullSreenToggled: function() {
           this.elementsToHide = document.querySelectorAll(this.hideElements.join(', '));
           this.elementsToHide.forEach(function(element){
-              if(window.innerWidth > 991){
+              var isDisabled = element.__data__ && element.__data__.disable == "true";
+              if(window.innerWidth > 991 && !isDisabled){
                   //We are on desktop
                   element.toggleAttribute('hidden');
               }

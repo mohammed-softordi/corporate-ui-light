@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     fs = require('fs');
 
 gulp.task('fetch-corporate-ui-css', function() {
-    var corporateUIVersion = argv.cuiversion || '3.5.0';
+    var corporateUIVersion = argv.cuiversion || '3.5.2';
 
     return remoteSrc(['corporate-ui.css', 'core.css'], {
         base: 'https://d31jnweo1ynb8u.cloudfront.net/build/global/' + corporateUIVersion + '/css/'

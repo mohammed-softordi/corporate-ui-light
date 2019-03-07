@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="css/font-awesome/all.min.css">
 <link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
 
+<link rel="import" href="behaviors/global-behavior.html">
+
 <dom-module id="ks-main-header">
   <template>
     <style>
@@ -40,7 +42,7 @@
         }
       }
     </style>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" hidden="[[hidden]]">
       <div class="navbar-header" short-name$="{{shortName}}">
         <a href$="{{siteUrl}}" class="navbar-brand"></a>
         {{siteName}}
@@ -55,14 +57,16 @@
   <script>
   Polymer({
       is: 'ks-main-header',
-    properties: {
-      siteName: String,
-      shortName: String,
-      siteUrl: {
-        type: String,
-        value: '/'
+      behaviors: [CUIBehaviors.GlobalBehavior],
+
+      properties: {
+        siteName: String,
+        shortName: String,
+        siteUrl: {
+          type: String,
+          value: '/'
+        }
       }
-    }
   });
   </script>
 

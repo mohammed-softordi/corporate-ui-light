@@ -2,9 +2,13 @@
 <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/font-awesome/all.min.css">
 <link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
+<script src="../bootstrap/js/transition.js"></script>
 <script src="../bootstrap/js/dropdown.js"></script>
 <script src="../bootstrap/js/collapse.js"></script>
 
+<script src="polyfill/foreach.js"></script>
+<link rel="import" href="behaviors/menu-behavior.html">
+<link rel="import" href="behaviors/global-behavior.html">
 <link rel="import" href="main-header.html">
 <link rel="import" href="fullscreen.html">
 <link rel="import" href="primary-menu.html">
@@ -73,7 +77,7 @@
              z-index: 1011;
              top: 53px;
          }
-         :host.sticky-header ::content .navbar-nav.navbar-right, :host[hidden].sticky-header ::content .navbar-nav.navbar-right {
+         :host.sticky-header ::content .navbar-nav.navbar-right:not([dropdownmenu]), :host[hidden].sticky-header ::content .navbar-nav.navbar-right:not([dropdownmenu]) {
              padding-right: 60px;
          }
          :host.sticky-header ::content .navbar-header .navbar-symbol, :host[hidden].sticky-header ::content .navbar-header .navbar-symbol {
