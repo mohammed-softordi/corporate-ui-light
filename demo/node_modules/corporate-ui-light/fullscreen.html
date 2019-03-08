@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer-1.4.0/polymer.html">
 <link rel="import" href="behaviors/global-behavior.html">
 
-<script src="polyfill/foreach.js"></script>
+<script src="polyfill/ie-polyfills.js"></script>
 
 <dom-module id="ks-fullscreen">
   <template>
@@ -9,7 +9,7 @@
         :host .sticky-toolbar {
             margin-right: 26px;
             pointer-events: auto;
-            position: fixed;
+            position: absolute;
             right: 0;
             z-index: 11;
             top: 128px;
@@ -82,6 +82,8 @@
               }
           });
           this.toggleAttribute('fullscreen-mode');
+          //To notify the window that the layout has changed. E.g the sticky-header will be recalculated
+          window.dispatchEvent(new CustomEvent('scroll'));
       }
   });
   </script>

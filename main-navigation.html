@@ -6,7 +6,7 @@
 <script src="../bootstrap/js/dropdown.js"></script>
 <script src="../bootstrap/js/collapse.js"></script>
 
-<script src="polyfill/foreach.js"></script>
+<script src="polyfill/ie-polyfills.js"></script>
 <link rel="import" href="behaviors/menu-behavior.html">
 <link rel="import" href="behaviors/global-behavior.html">
 <link rel="import" href="main-header.html">
@@ -76,6 +76,7 @@
          :host.sticky-header ::content .sticky-toolbar {
              z-index: 1011;
              top: 53px;
+             position: fixed;
          }
          :host.sticky-header ::content .navbar-nav.navbar-right:not([dropdownmenu]), :host[hidden].sticky-header ::content .navbar-nav.navbar-right:not([dropdownmenu]) {
              padding-right: 60px;

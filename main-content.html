@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
 
-<script src="polyfill/foreach.js"></script>
+<script src="polyfill/ie-polyfills.js"></script>
 
 <dom-module id="ks-main-content">
   <template>
@@ -41,7 +41,7 @@
                   metaData = [{name: "msapplication-TileColor", content: "#000"},
                       {name: "msapplication-TileImage", content: "https://static.scania.com/resources/logotype/scania/favicon/ms-icon-144x144.png"}
                   ],
-                  styleContent = 'body { display: flex; flex-direction: column; } body[ks-primary-submenu-open] ' +
+                  styleContent = 'body { display: flex; flex-direction: column; } [hidden] {display: none;} body[ks-primary-submenu-open] ' +
                           '.navbar.navbar-default .container-fluid {background-color: #f7f7f7;}' +
                           'body[ks-primary-submenu-open] .collapse.navbar-collapse {margin-bottom: 36px;background-color: #fff;}',
 
