@@ -1,0 +1,51 @@
+<link rel="import" href="../../polymer-1.4.0/polymer.html">
+<script src="../polyfill/ie-polyfills.js"></script>
+
+  <script>
+    window.CUIBehaviors = window.CUIBehaviors || {};
+
+    CUIBehaviors.StateBehavior = {
+
+        submenuOpen: function(open){
+            if(open){
+                document.body.setAttribute('ks-primary-submenu-open', '');
+            }
+        },
+        submenuClosed: function(closed){
+            if(closed){
+                document.body.removeAttribute('ks-primary-submenu-open');
+            }
+        },
+        fullscreen: function(on){
+            if(on){
+                document.body.setAttribute('ks-fullscreen-mode', '');
+            } else {
+                document.body.removeAttribute('ks-fullscreen-mode');
+            }
+
+        },
+        sticky: function(on){
+            if(on){
+                document.body.setAttribute('ks-sticky-mode', '');
+            } else {
+                document.body.removeAttribute('ks-sticky-mode');
+            }
+
+        },
+        header: function(hidden){
+            if(hidden){
+                document.body.setAttribute('ks-main-header-hidden', '');
+            } else {
+                document.body.removeAttribute('ks-main-header-hidden');
+            }
+
+        },
+        unresolved: function(){
+            document.body.setAttribute('unresolved', '');
+        }
+
+
+    };
+
+  </script>
+

@@ -19,15 +19,16 @@
               observer: '_onDisableMenu'
           }
       },
-      identifier: 'MenuBehavior',
-      secondaryCustomContent:[],
       identification: [],
       allMenuItems: [],
 
         _onDisableMenu: function(){
             this.hideMenu = (this.disableMenu === '' || this.disableMenu === 'true' );
-            if(this.hideMenu){
-                document.body.removeAttribute('ks-primary-submenu-open');
+            CUIBehaviors.StateBehavior.submenuClosed(this.hideMenu);
+        },
+        _itemAdded: function () {
+            if(this.items && this.items.length > 0){
+                CUIBehaviors.GlobalBehavior.mergeArray(this.items, this.allMenuItems);
             }
         },
       subMenuHash: function(title) {
@@ -41,17 +42,14 @@
 
         allOpenSubMenu.forEach(function (element) {
           element.classList.remove('open');
+            CUIBehaviors.GlobalBehavior.safeCall(element.classList, 'remove', 'open');
         });
       },
       toggleSubmenu: function (parentNode, activeSubmenu, notify) {
-          if(notify){
-              document.body.removeAttribute('ks-primary-submenu-open');
-          }
+          CUIBehaviors.StateBehavior.submenuClosed(notify);
           if(activeSubmenu && activeSubmenu.querySelector('li') !== null) {
               activeSubmenu.classList.add('open');
-              if(notify){
-                  document.body.setAttribute('ks-primary-submenu-open', '');
-              }
+              CUIBehaviors.StateBehavior.submenuOpen(notify);
           }
       },
       getActiveSubmenu: function(title, id){
@@ -59,11 +57,7 @@
                 activeSubMenu = this.querySelector('#' + subMenuHash);
         return activeSubMenu;
       },
-      _itemAdded: function () {
-          if(this.items && this.items.length > 0){
-              CUIBehaviors.GlobalBehavior.mergeArray(this.items, this.allMenuItems);
-          }
-      },
+
         _initMenu: function(selector){
             var activeItem = this.querySelector(selector);
             if (activeItem) {
@@ -73,26 +67,15 @@
         toggle: function (parentNode, isPrimary) {
             if(isPrimary){
                 document.querySelectorAll('.dropdown-trigger').forEach(function(trigger){
-                    trigger.parentNode.classList.remove('active');
+                    CUIBehaviors.GlobalBehavior.safeCall(trigger.parentNode.classList, 'remove', 'active');
                 })
             }else{
-                CUIBehaviors.GlobalBehavior.safeCall(document.querySelector('.more-trigger').parentNode.classList, 'remove', 'active')
+                CUIBehaviors.GlobalBehavior.safeCall(document.querySelector('.more-trigger').parentNode.classList, 'remove', 'active');
             }
             var activeSubmenu = this.getActiveSubmenu(parentNode.title, parentNode.id);
             this.resetMenu('.subnav.open');
             this.toggleSubmenu(parentNode, activeSubmenu, true);
-        },
-      registered: function() {
-        var registeredElement = [];
-        registeredElement = this.behaviors.map(function(behavior) {
-          if(behavior.identifier == 'MenuBehavior'){
-            return behavior.identification;
-          }
-        });
-        if(registeredElement.length > 0){
-//          this.registeredMenuComponents = registeredElement;
         }
-      }
     };
 
   </script>

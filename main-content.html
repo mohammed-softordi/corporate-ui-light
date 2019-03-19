@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
 
 <script src="polyfill/ie-polyfills.js"></script>
+<link rel="import" href="behaviors/state-behavior.html">
 
 <dom-module id="ks-main-content">
   <template>
@@ -20,6 +21,7 @@
   <script>
   Polymer({
     is: 'ks-main-content',
+      behaviors: [CUIBehaviors.StateBehavior],
 
       ready: function(){
           var favicons = [{rel: "shortcut icon", href: "https://static.scania.com/resources/logotype/scania/favicon/favicon.ico"},
@@ -41,9 +43,9 @@
                   metaData = [{name: "msapplication-TileColor", content: "#000"},
                       {name: "msapplication-TileImage", content: "https://static.scania.com/resources/logotype/scania/favicon/ms-icon-144x144.png"}
                   ],
-                  styleContent = 'body { display: flex; flex-direction: column; } [hidden] {display: none;} body[ks-primary-submenu-open] ' +
-                          '.navbar.navbar-default .container-fluid {background-color: #f7f7f7;}' +
-                          'body[ks-primary-submenu-open] .collapse.navbar-collapse {margin-bottom: 36px;background-color: #fff;}',
+                  styleContent = 'body{display:flex;flex-direction:column;}[hidden]{display: none;}body[ks-primary-submenu-open] .navbar.navbar-default .container-fluid{background-color:#f7f7f7;}' +
+                          'body[ks-primary-submenu-open] .collapse.navbar-collapse{margin-bottom:36px;background-color:#fff;}body[ks-main-header-hidden] .sticky-toolbar{top:58px;}' +
+                      'body[ks-sticky-mode] .sticky-toolbar{z-index:1011;top:55px;position:fixed;}body[ks-fullscreen-mode] .sticky-toolbar{top:5px;}',
 
                   style = document.createElement('style');
 
@@ -66,7 +68,7 @@
               document.head.appendChild(meta);
           });
 
-          document.body.setAttribute('unresolved', '');
+          this.unresolved();
       }
   });
   </script>

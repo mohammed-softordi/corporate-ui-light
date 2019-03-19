@@ -9,6 +9,7 @@
 <script src="polyfill/ie-polyfills.js"></script>
 <link rel="import" href="behaviors/menu-behavior.html">
 <link rel="import" href="behaviors/global-behavior.html">
+<link rel="import" href="behaviors/state-behavior.html">
 <link rel="import" href="main-header.html">
 <link rel="import" href="fullscreen.html">
 <link rel="import" href="primary-menu.html">
@@ -75,7 +76,7 @@
          }
          :host.sticky-header ::content .sticky-toolbar {
              z-index: 1011;
-             top: 53px;
+             /*top: 53px!important;*/
              position: fixed;
          }
          :host.sticky-header ::content .navbar-nav.navbar-right:not([dropdownmenu]), :host[hidden].sticky-header ::content .navbar-nav.navbar-right:not([dropdownmenu]) {
@@ -107,7 +108,10 @@
          }
          :host .collapse.in{
              width: 100%;
+         }
+         :host .navbar-collapse{
              margin-left: 0;
+             margin-right: 0;
          }
      }
    </style>
@@ -141,7 +145,7 @@
   <script>
   Polymer({
       is: 'ks-main-navigation',
-      behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.MenuBehavior],
+      behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.MenuBehavior, CUIBehaviors.StateBehavior],
 
       attached: function () {
           this.mainHeader = this.querySelector('ks-main-header');
@@ -153,9 +157,11 @@
           if (mainHeaderBox.top <= -mainHeaderBox.height && !this.isHeaderSticky) {
               this.classList.add('sticky-header');
               this.isHeaderSticky = true;
+              this.sticky(true);
           } else if (this.isHeaderSticky && mainHeaderBox.top > -mainHeaderBox.height) {
               this.classList.remove('sticky-header');
               this.isHeaderSticky = false;
+              this.sticky(false);
           }
       }
 

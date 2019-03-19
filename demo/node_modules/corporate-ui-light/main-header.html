@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
 
 <link rel="import" href="behaviors/global-behavior.html">
+<link rel="import" href="behaviors/state-behavior.html">
 
 <dom-module id="ks-main-header">
   <template>
@@ -42,7 +43,7 @@
         }
       }
     </style>
-    <nav class="navbar navbar-default" hidden="[[hidden]]">
+    <nav class="navbar navbar-default">
       <div class="navbar-header" short-name$="{{shortName}}">
         <a href$="{{siteUrl}}" class="navbar-brand"></a>
         {{siteName}}
@@ -57,7 +58,7 @@
   <script>
   Polymer({
       is: 'ks-main-header',
-      behaviors: [CUIBehaviors.GlobalBehavior],
+      behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.StateBehavior],
 
       properties: {
         siteName: String,
@@ -66,6 +67,9 @@
           type: String,
           value: '/'
         }
+      },
+      attributeChanged: function (name, type) {
+          this.header(this.getAttribute('disable') == 'true');
       }
   });
   </script>

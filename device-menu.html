@@ -110,6 +110,13 @@
               }
           }.bind(this));
       },
+      detached: function () {
+          document.removeEventListener('custom-content-added', this._applyConstumTemplate.bind(this));
+          document.removeEventListener('click', this._onClick.bind(this));
+      },
+      _applyConstumTemplate: function (event) {
+          event.detail.customContent.appendTo(this.$.customTemplate);
+      },
       _onClick: function (event) {
           var parentNode = this.parentNode.classList,
                   isOpened = parentNode.contains('navbar-collapse') && parentNode.contains('in'),
@@ -120,11 +127,12 @@
           }
       },
       _toggleCollapse: function () {
-          document.querySelector('button.navbar-toggle').classList.add('collapsed');
-          this.parentNode.classList.remove('in');
+          this.safeCall(document.querySelector('button.navbar-toggle').classList, 'add', 'collapsed');
+          this.safeCall(this.parentNode.classList, 'remove', 'in');
       },
-      _applyConstumTemplate: function (event) {
-          event.detail.customContent.appendTo(this.$.customTemplate);
+      _buildMenu: function () {
+          $('#ksDeviceMenu').treeview(this._menuOption());
+          $('#ksDeviceMenu').treeview('collapseAll', {silent: true});
       },
       _menuOption: function(){
           return {
@@ -143,10 +151,6 @@
               onNodeSelected: this._toggleCollapse.bind(this)
           };
 
-      },
-      _buildMenu: function () {
-          $('#ksDeviceMenu').treeview(this._menuOption());
-          $('#ksDeviceMenu').treeview('collapseAll', {silent: true});
       },
       _formatedNodes: function () {
           this.allMenuItems = this.renamePropertiy(this.allMenuItems, 'state', 'stateName', true);

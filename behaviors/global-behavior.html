@@ -14,7 +14,12 @@
         }
       },
       _onDisableChange: function(){
-        this.hidden = (this.disable === 'true');
+        this.hidden = this.disable === 'true' || this.hasAttribute('ks-fullscreen-mode');
+          if(this.hidden) {
+              this.setAttribute('hidden', '');
+          } else {
+              this.removeAttribute('hidden');
+          }
       },
 
       conditionalClass: function(className, obj, property) {

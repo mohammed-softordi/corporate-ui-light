@@ -77,7 +77,6 @@
           }
       },
       attributeChanged: function (name, type) {
-          console.log('Secondary hideMenu', this.hideMenu);
           Polymer.RenderStatus.afterNextRender(this, function () {
               var secondaryDropdownActiveItems = this.querySelector('.secondary-menu-item.secondary-dropdown li.active');
               if(secondaryDropdownActiveItems){
@@ -93,7 +92,7 @@
           this._setDropdownToActive();
       },
       _setDropdownToActive: function(){
-          this.querySelector('.dropdown-toggle').parentNode.classList.add('active');
+          this.safeCall(this.querySelector('.dropdown-toggle').parentNode.classList, 'add', 'active');
       }
   });
   </script>

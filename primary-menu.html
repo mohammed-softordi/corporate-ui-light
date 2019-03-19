@@ -158,12 +158,15 @@
       behaviors: [CUIBehaviors.MenuBehavior, CUIBehaviors.GlobalBehavior],
 
       attached: function () {
-          console.log('Primary hideMenu', this.hideMenu);
           this.init = false;
           window.addEventListener('resize', this.doAdapt.bind(this));
           window.addEventListener('scroll', this.doAdapt.bind(this));
           this.identification.push({id: 'primary-menu'});
           this.doAdapt();
+      },
+      detached: function () {
+          window.removeEventListener('resize', this.doAdapt.bind(this));
+          window.removeEventListener('scroll', this.doAdapt.bind(this));
       },
       attributeChanged: function (name, type) {
           Polymer.RenderStatus.afterNextRender(this, function () {
@@ -188,7 +191,7 @@
           this._setMoreMenuToActive();
       },
       _setMoreMenuToActive: function(){
-          this.querySelector('.more-trigger').parentNode.classList.add('active');
+          this.safeCall(this.querySelector('.more-trigger').parentNode.classList, 'add', 'active');
       },
       doAdapt: function () {
           var moreDropdown = this.querySelector('.more-dropdown'),
