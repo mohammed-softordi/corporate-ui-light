@@ -127,7 +127,7 @@
         <span class="icon-bar"></span>
       </button>
       <content select="ks-main-header"></content>
-      <content select="#ks-top-banner"></content>
+        <content select="#ks-top-banner"></content>
     </div>
 
     <div class="collapse navbar-collapse" id="mainNav">
@@ -151,9 +151,26 @@
       attached: function () {
           this.mainHeader = this.querySelector('ks-main-header');
           this.isHeaderSticky = false;
-          window.addEventListener('scroll', this.onWindowScroll.bind(this));
+          window.addEventListener('scroll', this._onWindowScroll.bind(this));
+          document.addEventListener('click', this._onClick.bind(this));
+          this.scopeSubtree(this, true);
+          Polymer.RenderStatus.afterNextRender(this, function () {
+              var topBanner = this.querySelector('#ks-top-banner .ng-hide') ||
+                              this.querySelector('#ks-top-banner .hide') ||
+                              this.querySelector('#ks-top-banner [hidden]'),
+                      isTopBannerVisible = topBanner == null;
+
+              this.topBannerOn(isTopBannerVisible);
+          }, this)
       },
-      onWindowScroll: function (event) {
+      detached: function () {
+          window.removeEventListener('scroll', this._onWindowScroll.bind(this));
+          document.removeEventListener('click', this._onClick.bind(this));
+      },
+      _onClick: function (event) {
+          this.topBannerOff(this.findById(event.path, 'ks-top-banner'));
+      },
+      _onWindowScroll: function (event) {
           var mainHeaderBox = this.mainHeader.getBoundingClientRect();
           if (mainHeaderBox.top <= -mainHeaderBox.height && !this.isHeaderSticky) {
               this.classList.add('sticky-header');

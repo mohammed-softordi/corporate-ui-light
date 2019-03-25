@@ -45,7 +45,9 @@
                   ],
                   styleContent = 'body{display:flex;flex-direction:column;}[hidden]{display: none;}body[ks-primary-submenu-open] .navbar.navbar-default .container-fluid{background-color:#f7f7f7;}' +
                           'body[ks-primary-submenu-open] .collapse.navbar-collapse{margin-bottom:36px;background-color:#fff;}body[ks-main-header-hidden] .sticky-toolbar{top:58px;}' +
-                      'body[ks-sticky-mode] .sticky-toolbar{z-index:1011;top:55px;position:fixed;}body[ks-fullscreen-mode] .sticky-toolbar{top:5px;}',
+                          'body[ks-sticky-mode] .sticky-toolbar{z-index:1011;top:55px;position:fixed;}body[ks-fullscreen-mode] .sticky-toolbar{top:5px;}' +
+                          'body[ks-top-banner]:not([ks-main-header-hidden]):not([ks-sticky-mode]):not([ks-fullscreen-mode]) .sticky-toolbar{top:168px;}' +
+                          'body[ks-top-banner][ks-main-header-hidden]:not([ks-sticky-mode]):not([ks-fullscreen-mode]) .sticky-toolbar{top:97px;}',
 
                   style = document.createElement('style');
 

@@ -42,8 +42,17 @@
         },
         unresolved: function(){
             document.body.setAttribute('unresolved', '');
+        },
+        topBannerOn: function(on){
+            if(on){
+                document.body.setAttribute('ks-top-banner', '');
+            }
+        },
+        topBannerOff: function(off){
+            if(off){
+                document.body.removeAttribute('ks-top-banner');
+            }
         }
-
 
     };
 
