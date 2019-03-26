@@ -1,4 +1,8 @@
 <link rel="import" href="../polymer-1.4.0/polymer.html">
+<link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome/all.min.css">
+<link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
+<script src="../bootstrap/js/tooltip.js"></script>
 
 <script src="polyfill/ie-polyfills.js"></script>
 <link rel="import" href="behaviors/state-behavior.html">
@@ -55,32 +59,76 @@
         :host[fullscreen-active] .sticky-toolbar a {
             background-color: #97999b;
         }
+        :host .tooltip .tooltip-inner {
+            background-color: #041e42;
+            color: #fff;
+            border-color: #041e42;
+            white-space: nowrap;
+        }
+        :host .tooltip.left .tooltip-arrow{
+            border-left-color: #041e42
+        }
+        :host[fullscreen-active] .tooltip.left {
+            left: -150px!important;
+        }
 
     </style>
     <div class="hidden-xs sticky-toolbar" hidden="[[hidden]]" id="stickyToolbar">
-        <a on-click="onfullSreenToggled" class="icon-fullscreen" title="[[title]]"></a>
+        <a on-click="onfullSreenToggled" class="icon-fullscreen" data-toggle="tooltip" id="fullcreenToggle">
+        </a>
     </div>
   </template>
 
 <script>
   Polymer({
-    is: 'ks-fullscreen',
-    behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.StateBehavior],
+      is: 'ks-fullscreen',
+      behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.StateBehavior],
 
-    properties: {
-        hideElements: {
-            type: Array,
-            value: function() {
-                return [];
-            }
-        },
-        title: String
-    },
+      properties: {
+          hideElements: {
+              type: Array,
+              value: function() {
+                  return [];
+              }
+          },
+          openTitle:{
+              type: String,
+              value: 'Fullscreen mode'
+          },
+          closeTitle:{
+              type: String,
+              value: 'Quite fullscreen mode'
+          }
+      },
+      attributeChanged: function (name, type) {
+          Polymer.RenderStatus.afterNextRender(this, function () {
+              if(name == 'disable'){
+                  this.initTooltip(this.openTitle);
+              }
+          }, this)
+      },
+      initTooltip: function (title) {
+          $(this.$.fullcreenToggle).tooltip('destroy');
+
+          $(this.$.fullcreenToggle).tooltip({
+              trigger: 'hover focus click',
+              delay: { 'show': 100, 'hide': 500 },
+              placement: 'left',
+              title: title
+          });
+          $(this.$.fullcreenToggle).tooltip('show');
+
+          this.scopeSubtree(this, true);
+
+          window.setTimeout(function () {
+              $(this.$.fullcreenToggle).tooltip('hide');
+          }.bind(this), 6000);
+      },
       onfullSreenToggled: function() {
           this.elementsToHide = document.querySelectorAll(this.hideElements.join(', '));
           this.elementsToHide.forEach(function(element){
               var isDisabled = element.__data__ && element.__data__.disable == "true",
-                  isFullScreenMode = element.hasAttribute('ks-fullscreen-mode');
+                      isFullScreenMode = element.hasAttribute('ks-fullscreen-mode');
 
               element.toggleAttribute('ks-fullscreen-mode');
               if(isDisabled) {
@@ -93,7 +141,13 @@
               }
           });
           this.toggleAttribute('fullscreen-active');
-          this.fullscreen(this.hasAttribute('fullscreen-active'));
+          var isFullScreenActive = this.hasAttribute('fullscreen-active');
+          this.fullscreen(isFullScreenActive);
+          if(isFullScreenActive){
+              this.initTooltip(this.closeTitle);
+          } else {
+              this.initTooltip(this.openTitle);
+          }
           //To notify the window that the layout has changed. E.g the sticky-header will be recalculated
           window.dispatchEvent(new CustomEvent('scroll'));
       }

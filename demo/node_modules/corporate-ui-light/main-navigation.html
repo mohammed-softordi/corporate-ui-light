@@ -176,7 +176,7 @@
               this.classList.add('sticky-header');
               this.isHeaderSticky = true;
               this.sticky(true);
-          } else if (this.isHeaderSticky && mainHeaderBox.top > -mainHeaderBox.height) {
+          } else if (this.isHeaderSticky && mainHeaderBox.top >= -mainHeaderBox.height) {
               this.classList.remove('sticky-header');
               this.isHeaderSticky = false;
               this.sticky(false);
