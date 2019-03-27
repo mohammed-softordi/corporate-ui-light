@@ -68,8 +68,11 @@
         :host .tooltip.left .tooltip-arrow{
             border-left-color: #041e42
         }
+        :host .tooltip.left {
+            left: -125px!important;
+        }
         :host[fullscreen-active] .tooltip.left {
-            left: -150px!important;
+            left: -157px!important;
         }
 
     </style>
@@ -102,7 +105,7 @@
       },
       attributeChanged: function (name, type) {
           Polymer.RenderStatus.afterNextRender(this, function () {
-              if(name == 'disable'){
+              if(name == 'disable' && !this.hasAttribute('fullscreen-active')){
                   this.initTooltip(this.openTitle);
               }
           }, this)
