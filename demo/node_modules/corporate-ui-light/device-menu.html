@@ -85,6 +85,8 @@
             position: fixed;
             width: 100%;
             background-color: #f5f5f5;
+            -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
         }
     }
 </style>
@@ -102,13 +104,15 @@
           this.rendered = false;
           document.addEventListener('custom-content-added', this._applyConstumTemplate.bind(this));
           document.addEventListener('click', this._onClick.bind(this));
-          this.scopeSubtree(this, true);
+      },
+      attached: function(){
           Polymer.RenderStatus.afterNextRender(this, function () {
               if(!this.rendered){
                   this._buildMenu();
                   this.rendered = true;
               }
           }.bind(this));
+          this.scopeSubtree(this, true);
       },
       detached: function () {
           document.removeEventListener('custom-content-added', this._applyConstumTemplate.bind(this));
