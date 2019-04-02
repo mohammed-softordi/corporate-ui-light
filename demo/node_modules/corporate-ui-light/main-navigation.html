@@ -97,14 +97,13 @@
          :host .navbar-default .navbar-header {
              width: 100%;
          }
-         :host .navbar-default .navbar-header button {
+         :host .navbar-default .navbar-header button.navbar-toggle {
              position: fixed;
              left: 23px;
              z-index: 1031;
-         }
-         :host .navbar-default .navbar-toggle {
-             padding-left: 14px;
-             padding-right: 14px
+             padding-left: 10px;
+             padding-right: 14px;
+             padding-bottom: 20px;
          }
          :host .collapse.in{
              width: 100%;
@@ -155,9 +154,9 @@
           document.addEventListener('click', this._onClick.bind(this));
           this.scopeSubtree(this, true);
           Polymer.RenderStatus.afterNextRender(this, function () {
-              var topBanner = this.querySelector('#ks-top-banner .ng-hide') ||
-                              this.querySelector('#ks-top-banner .hide') ||
-                              this.querySelector('#ks-top-banner [hidden]'),
+              var topBanner = this.querySelector('#ks-top-banner > .ng-hide') ||
+                              this.querySelector('#ks-top-banner > .hide') ||
+                              this.querySelector('#ks-top-banner > [hidden]'),
                       isTopBannerVisible = topBanner == null;
 
               this.topBannerOn(isTopBannerVisible);
