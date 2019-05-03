@@ -82,7 +82,7 @@
         :host {
             overflow-y: scroll;
             max-height: 90vh;
-            position: fixed;
+            /*position: fixed;*/
             width: 100%;
             background-color: #f5f5f5;
             -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
@@ -91,8 +91,7 @@
     }
 </style>
   <template>
-    <div class="visible-xs visible-sm" id="ksDeviceMenu"></div>
-      <ul class="visible-xs visible-sm" id="customTemplate"></ul>
+    <div id="ksDeviceMenu"></div>
   </template>
 
  <script>
@@ -100,30 +99,23 @@
       is: 'ks-device-menu',
       behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.MenuBehavior],
 
-      ready: function () {
+      created: function () {
           this.rendered = false;
-          document.addEventListener('custom-content-added', this._applyConstumTemplate.bind(this));
+          document.addEventListener('menu-item-added', this._buildMenu.bind(this));
           document.addEventListener('click', this._onClick.bind(this));
       },
       attached: function(){
-          Polymer.RenderStatus.afterNextRender(this, function () {
-              if(!this.rendered){
-                  this._buildMenu();
-                  this.rendered = true;
-              }
-          }.bind(this));
           this.scopeSubtree(this, true);
+          this._toggleCollapse();
       },
+
       detached: function () {
-          document.removeEventListener('custom-content-added', this._applyConstumTemplate.bind(this));
+          document.removeEventListener('menu-item-added', this._buildMenu.bind(this));
           document.removeEventListener('click', this._onClick.bind(this));
       },
-      _applyConstumTemplate: function (event) {
-          event.detail.customContent.appendTo(this.$.customTemplate);
-      },
       _onClick: function (event) {
-          var parentNode = this.parentNode.classList,
-                  isOpened = parentNode.contains('navbar-collapse') && parentNode.contains('in'),
+          var parentNodeClassList = document.querySelector('.navbar-collapse').classList,
+                  isOpened = parentNodeClassList && parentNodeClassList.contains('in'),
                   isCustomToggle = this.findByAttr(event.path, 'ks-navigation-toggle');
 
           if (isOpened && isCustomToggle) {
@@ -131,14 +123,15 @@
           }
       },
       _toggleCollapse: function () {
+          var parentNodeClassList = document.querySelector('.navbar-collapse').classList;
           this.safeCall(document.querySelector('button.navbar-toggle').classList, 'add', 'collapsed');
-          this.safeCall(this.parentNode.classList, 'remove', 'in');
+          this.safeCall(parentNodeClassList, 'remove', 'in');
       },
-      _buildMenu: function () {
-          $('#ksDeviceMenu').treeview(this._menuOption());
+      _buildMenu: function (event) {
+          $('#ksDeviceMenu').treeview(this._menuOption(event));
           $('#ksDeviceMenu').treeview('collapseAll', {silent: true});
       },
-      _menuOption: function(){
+      _menuOption: function(event){
           return {
               showBorder: false,
               color: '#909090',
@@ -150,16 +143,17 @@
               customSelectedStyle: 'custom',
               customExpandedStyle: 'custom',
               indentNode: true,
-              data: this._formatedNodes(),
+              data: this._formatedNodes(event),
               decorator: this._decorate.bind(this),
               onNodeSelected: this._toggleCollapse.bind(this)
           };
 
       },
-      _formatedNodes: function () {
-          this.allMenuItems = this.renamePropertiy(this.allMenuItems, 'state', 'stateName', true);
-          var formatedItems = [];
-          this.allMenuItems.forEach(function(node){
+      _formatedNodes: function (event) {
+          console.log('event.detail.menuItems ', event.detail.menuItems);
+          var menuItems = this.renamePropertiy(event.detail.menuItems, 'state', 'stateName', true),
+            formatedItems = [];
+          menuItems.forEach(function(node){
               node = this.renamePropertiy(node, 'items', 'nodes');
               node = this.renamePropertiy(node, 'title', 'text');
               node.selector = 'top-level';

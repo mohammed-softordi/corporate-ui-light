@@ -22,13 +22,18 @@
              border-left: 1px solid #e2e2e2;
              padding: 0 15px;
          }
+         @media (max-width: 991px) {
+             :host ul {
+                 width: 100%;
+             }
+         }
 
     </style>
 
     <ul class="nav navbar-nav navbar-right" dropdownMenu$="{{dropdownMenu}}">
           <template is="dom-if" if="{{dropdownMenu}}">
               <template is="dom-repeat" items="{{items}}" as="parent">
-              <li class="dropdown">
+              <li class="dropdown visible-lg visible-md">
               <a class="dropdown-toggle dropdown-trigger" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   {{parent.title}}
                   <span class="caret"></span>
@@ -48,7 +53,7 @@
           </template>
           <template is="dom-if" if="{{!dropdownMenu}}">
                <template is="dom-repeat" items="{{items}}">
-                 <li class$="{{conditionalClass('active', item, 'active')}}">
+                 <li class$="{{conditionalClass('active', item, 'active')}} visible-lg visible-md">
                     <a href="{{item.href}}" target="{{conditionalAttr(item.target)}}">
                         {{item.title}}
                     </a>
@@ -71,13 +76,6 @@
               type: String,
               value: '',
               observer: '_dropdown'
-          }
-      },
-      created: function () {
-          var textTemplate= document.querySelector('secondary-menu-item:not([dropdown]) li#customContent');
-          if(textTemplate && textTemplate.innerHTML.trim() !== ''){
-              var customContent = $(textTemplate.innerHTML).clone();
-              document.dispatchEvent(new CustomEvent('custom-content-added', {detail: {customContent: customContent, bubbles: false, composed: true}}));
           }
       },
       attributeChanged: function (name, type) {

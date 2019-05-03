@@ -103,7 +103,7 @@
         }
     </style>
 
-     <ul class="nav navbar-nav main-menu">
+     <ul class="nav navbar-nav main-menu visible-lg visible-md">
          <template is="dom-repeat" items="{{items}}">
              <li class$="main-menu-item {{conditionalClass('active', item, 'active')}}" >
               <ks-nav-item href="{{item.href}}" title="{{item.title}}" target="{{item.target}}" id="[[index]]"
@@ -127,7 +127,7 @@
               </ul>
         </li>
     </ul>
-    <div class="nav navbar-nav">
+    <div class="nav navbar-nav visible-lg visible-md">
           <template is="dom-repeat" items="{{items}}" as="primary" index-as="primary-id">
                 <div class="dropdown subnav" id="[[subMenuHash(primary.title)]]-[[primary-id]]">
                     <ul class="dropdown-menu">
@@ -194,6 +194,10 @@
           this.safeCall(this.querySelector('.more-trigger').parentNode.classList, 'add', 'active');
       },
       doAdapt: function () {
+          if(this.isDevice){
+              //We are on a device
+              return;
+          }
           var moreDropdown = this.querySelector('.more-dropdown'),
                   mainMenu = this.querySelector('.main-menu'),
                   mainMenuItems = this.querySelectorAll('.main-menu-item'),
@@ -202,6 +206,9 @@
                   moreLi = this.querySelector('.more'),
                   secondaryMenu = this.parentNode.querySelector('secondary-menu');
 
+          if(!secondaryMenu){
+              return;
+          }
           mainMenu.classList.add('--jsfied');
 
           // reveal all items for the calculation
@@ -214,10 +221,7 @@
                   totalMenuWidth = deviceWidth - secondaryMenu.offsetWidth,
                   dynamicWidth = moreLi.offsetWidth + 100;
 
-          if(deviceWidth < 992){
-              //We are on a device
-              return;
-          }
+
           mainMenuItems.forEach(function(item, i) {
               if(totalMenuWidth > dynamicWidth + item.offsetWidth) {
                   dynamicWidth += item.offsetWidth
