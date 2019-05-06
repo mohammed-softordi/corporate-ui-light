@@ -103,21 +103,26 @@
               value: 'Quite fullscreen mode'
           }
       },
+      attached: function(){
+          this.toolTipTitle = this.openTitle;
+          this.initTooltip();
+      },
       attributeChanged: function (name, type) {
           Polymer.RenderStatus.afterNextRender(this, function () {
               if(name == 'disable' && !this.hasAttribute('fullscreen-active')){
-                  this.initTooltip(this.openTitle);
+                  this.toolTipTitle = this.openTitle;
               }
           }, this)
       },
-      initTooltip: function (title) {
-          $(this.$.fullcreenToggle).tooltip('destroy');
-
+      _getTitle: function(){
+          return this.toolTipTitle;
+      },
+      initTooltip: function () {
           $(this.$.fullcreenToggle).tooltip({
-              trigger: 'hover focus click',
+              trigger: 'hover focus',
               delay: { 'show': 100, 'hide': 500 },
               placement: 'left',
-              title: title
+              title: this._getTitle.bind(this)
           });
           $(this.$.fullcreenToggle).tooltip('show');
 
@@ -128,6 +133,7 @@
           }.bind(this), 6000);
       },
       onfullSreenToggled: function() {
+
           this.elementsToHide = document.querySelectorAll(this.hideElements.join(', '));
           this.elementsToHide.forEach(function(element){
               var isDisabled = element.__data__ && element.__data__.disable == "true",
@@ -147,9 +153,9 @@
           var isFullScreenActive = this.hasAttribute('fullscreen-active');
           this.fullscreen(isFullScreenActive);
           if(isFullScreenActive){
-              this.initTooltip(this.closeTitle);
+              this.toolTipTitle = this.closeTitle;
           } else {
-              this.initTooltip(this.openTitle);
+              this.toolTipTitle = this.openTitle;
           }
           //To notify the window that the layout has changed. E.g the sticky-header will be recalculated
           window.dispatchEvent(new CustomEvent('scroll'));
