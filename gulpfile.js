@@ -23,6 +23,5 @@ gulp.task('fetch-font-awesome-pro', function() {
 });
 
 gulp.task('default', gulp.series([
-    'fetch-corporate-ui-css',
-    'fetch-font-awesome-pro'
+    'fetch-corporate-ui-css'
 ]));
