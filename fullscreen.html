@@ -67,10 +67,10 @@
         :host .tooltip.left .tooltip-arrow{
             border-left-color: #041e42
         }
-        :host .tooltip.left {
+        :host .tooltip.bottom {
             left: -125px!important;
         }
-        :host[fullscreen-active] .tooltip.left {
+        :host[fullscreen-active] .tooltip.bottom{
             left: -157px!important;
         }
 
@@ -120,7 +120,7 @@
           $(this.$.fullcreenToggle).tooltip({
               trigger: 'hover focus',
               delay: { 'show': 100, 'hide': 500 },
-              placement: 'left',
+              placement: 'bottom',
               title: this._getTitle.bind(this)
           });
           $(this.$.fullcreenToggle).tooltip('show');

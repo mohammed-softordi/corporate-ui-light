@@ -68,10 +68,10 @@
                 CUIBehaviors.StateBehavior.submenuOpen(notify);
             }
         },
-        getActiveSubmenu: function(title, id){
-            var subMenuHash = this.subMenuHash(title) + '-' + id,
-                activeSubMenu = this.querySelector('#' + subMenuHash);
-            return activeSubMenu;
+        getActiveSubmenu: function(parentNode){
+          // var subMenuHash = this.subMenuHash(title) + '-' + id,
+          var activeSubMenu = this.querySelector('#' + parentNode.id + '-' +  parentNode.getAttribute('index'));
+          return activeSubMenu;
         },
 
         _initMenu: function(selector){
@@ -88,7 +88,7 @@
             }else{
                 CUIBehaviors.GlobalBehavior.safeCall(document.querySelector('.more-trigger').parentNode.classList, 'remove', 'active');
             }
-            var activeSubmenu = this.getActiveSubmenu(parentNode.title, parentNode.id);
+            var activeSubmenu = this.getActiveSubmenu(parentNode);
             this.resetMenu('.subnav.open');
             this.toggleSubmenu(parentNode, activeSubmenu, true);
         }
