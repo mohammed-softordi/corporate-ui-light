@@ -78,19 +78,19 @@
              /*top: 53px!important;*/
              position: fixed;
          }
-         :host.sticky-header ::content .navbar-nav.navbar-right:not([dropdownmenu]), :host[hidden].sticky-header ::content .navbar-nav.navbar-right:not([dropdownmenu]) {
-             padding-right: 60px;
-         }
+
          :host.sticky-header ::content .navbar-header .navbar-symbol, :host[hidden].sticky-header ::content .navbar-header .navbar-symbol {
              width: 40px;
              height: 37px;
          }
-         :host.sticky-header ::content .navbar-header .navbar-symbol:before, :host[hidden].sticky-header ::content .navbar-header .navbar-symbol:before {
+
+         :host.sticky-header ::content:not([disable='true']) .navbar-header .navbar-symbol:before {
              position: fixed;
              top: 7px;
              right: 10px;
              animation: logoslide .4s ease-in-out;
          }
+
      }
      @media (max-width: 991px) {
          :host .navbar-default .navbar-header {

@@ -5,93 +5,92 @@
     window.CUIBehaviors = window.CUIBehaviors || {};
 
     CUIBehaviors.MenuBehavior = {
-        properties: {
-            items: {
-                type: Array,
-                value: function () {
-                    return [];
-                },
-                observer: '_itemAdded'
-            },
-            disableMenu: {
-                type: String,
-                value: 'false',
-                observer: '_onDisableMenu'
-            }
+      properties: {
+        items: {
+          type: Array,
+          value: function () {
+            return [];
+          },
+          observer: '_itemAdded'
         },
-        identification: [],
-        allMenuItems: [],
-
-        _onDisableMenu: function(){
-            this.hideMenu = (this.disableMenu === '' || this.disableMenu === 'true' );
-            if(this.hideMenu){
-                this.allMenuItems = [];
-            }
-            CUIBehaviors.StateBehavior.submenuClosed(this.hideMenu);
-        },
-        _itemAdded: function () {
-            if(this._isResolved(this.items)){
-                CUIBehaviors.GlobalBehavior.mergeArray(this.items, this.allMenuItems);
-                document.dispatchEvent(new CustomEvent('menu-item-added', {detail: {menuItems: $.extend(true, [], this.allMenuItems), bubbles: false, composed: true}}));
-            }
-        },
-
-        _isResolved: function(items){
-            var resolved = true;
-            if(!items || items.length == 0){
-                return false;
-            }
-            items.forEach(function (item) {
-                if(!item.title){
-                    resolved = false;
-                }
-            });
-            return resolved;
-        },
-        subMenuHash: function(title) {
-            var matcher = /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g;
-            if(title) {
-                return title.match(matcher).join('-').toLowerCase();
-            }
-        },
-        resetMenu: function(subMenuSelector){
-            var allOpenSubMenu = document.querySelectorAll(subMenuSelector);
-            allOpenSubMenu.forEach(function (element) {
-                element.classList.remove('open');
-                CUIBehaviors.GlobalBehavior.safeCall(element.classList, 'remove', 'open');
-            });
-        },
-        toggleSubmenu: function (parentNode, activeSubmenu, notify) {
-            CUIBehaviors.StateBehavior.submenuClosed(notify);
-            if(activeSubmenu && activeSubmenu.querySelector('li') !== null) {
-                activeSubmenu.classList.add('open');
-                CUIBehaviors.StateBehavior.submenuOpen(notify);
-            }
-        },
-        getActiveSubmenu: function(parentNode){
-          // var subMenuHash = this.subMenuHash(title) + '-' + id,
-          var activeSubMenu = this.querySelector('#' + parentNode.id + '-' +  parentNode.getAttribute('index'));
-          return activeSubMenu;
-        },
-
-        _initMenu: function(selector){
-            var activeItem = this.querySelector(selector);
-            if (activeItem) {
-                this.toggle(activeItem.parentNode);
-            }
-        },
-        toggle: function (parentNode, isPrimary) {
-            if(isPrimary){
-                document.querySelectorAll('.dropdown-trigger').forEach(function(trigger){
-                    CUIBehaviors.GlobalBehavior.safeCall(trigger.parentNode.classList, 'remove', 'active');
-                })
-            }else{
-                CUIBehaviors.GlobalBehavior.safeCall(document.querySelector('.more-trigger').parentNode.classList, 'remove', 'active');
-            }
-            var activeSubmenu = this.getActiveSubmenu(parentNode);
-            this.resetMenu('.subnav.open');
-            this.toggleSubmenu(parentNode, activeSubmenu, true);
+        disableMenu: {
+          type: String,
+          value: 'false',
+          observer: '_onDisableMenu'
         }
+      },
+      identification: [],
+      allMenuItems: [],
+
+      _onDisableMenu: function(){
+        this.hideMenu = (this.disableMenu === '' || this.disableMenu === 'true' );
+        if(this.hideMenu){
+          this.allMenuItems = [];
+        }
+        CUIBehaviors.StateBehavior.submenuClosed(this.hideMenu);
+      },
+      _itemAdded: function () {
+        if(this._isResolved(this.items)){
+          CUIBehaviors.GlobalBehavior.mergeArray(this.items, this.allMenuItems);
+          document.dispatchEvent(new CustomEvent('menu-item-added', {detail: {menuItems: $.extend(true, [], this.allMenuItems), bubbles: false, composed: true}}));
+        }
+      },
+
+      _isResolved: function(items){
+        var resolved = true;
+        if(!items || items.length == 0){
+          return false;
+        }
+        items.forEach(function (item) {
+          if(!item.title){
+            resolved = false;
+          }
+        });
+        return resolved;
+      },
+      subMenuHash: function(title) {
+        var matcher = /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g;
+        if(title) {
+          return title.match(matcher).join('-').toLowerCase();
+        }
+      },
+      resetMenu: function(subMenuSelector){
+        var allOpenSubMenu = document.querySelectorAll(subMenuSelector);
+        allOpenSubMenu.forEach(function (element) {
+          element.classList.remove('open');
+          CUIBehaviors.GlobalBehavior.safeCall(element.classList, 'remove', 'open');
+        });
+      },
+      toggleSubmenu: function (parentNode, activeSubmenu, notify) {
+        CUIBehaviors.StateBehavior.submenuClosed(notify);
+        if(activeSubmenu && activeSubmenu.querySelector('li') !== null) {
+          activeSubmenu.classList.add('open');
+          CUIBehaviors.StateBehavior.submenuOpen(notify);
+        }
+      },
+      getActiveSubmenu: function(parentNode){
+        var activeSubMenu = this.querySelector('#' + parentNode.id + '-' +  parentNode.getAttribute('index'));
+        return activeSubMenu;
+      },
+
+      _initMenu: function(selector){
+        var activeItem = this.querySelector(selector);
+        if (activeItem) {
+          this.toggle(activeItem.parentNode);
+        }
+      },
+      toggle: function (parentNode, isPrimary) {
+        if(isPrimary){
+          document.querySelectorAll('.dropdown-trigger').forEach(function(trigger){
+            CUIBehaviors.GlobalBehavior.safeCall(trigger.parentNode.classList, 'remove', 'active');
+          })
+        }else{
+          CUIBehaviors.GlobalBehavior.safeCall(document.querySelector('.more-trigger').parentNode.classList, 'remove', 'active');
+        }
+        var activeSubmenu = this.getActiveSubmenu(parentNode);
+        this.resetMenu('.subnav.open');
+        this.toggleSubmenu(parentNode, activeSubmenu, true);
+      }
     };
 
   </script>

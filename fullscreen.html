@@ -65,19 +65,18 @@
             white-space: nowrap;
         }
         :host .tooltip.bottom .tooltip-arrow{
-            border-left-color: #041e42
+            border-bottom-color: #041e42
         }
         :host .tooltip.bottom {
             left: -125px!important;
         }
-        :host[fullscreen-active] .tooltip.bottom{
+        :host[fullscreen-active] .tooltip.bottom {
             left: -157px!important;
         }
 
     </style>
     <div class="hidden-xs sticky-toolbar" hidden="[[hidden]]" id="stickyToolbar">
-        <a on-click="onfullSreenToggled" class="icon-fullscreen" data-toggle="tooltip" id="fullcreenToggle">
-        </a>
+        <a on-click="onfullSreenToggled" class="icon-fullscreen" data-toggle="tooltip" id="fullcreenToggle"></a>
     </div>
   </template>
 
@@ -133,21 +132,35 @@
       },
       onfullSreenToggled: function() {
 
+          var mainFooter = document.querySelector('ks-main-footer'),
+              mainHeader = document.querySelector('ks-main-header');
+          this.toggleElements(mainFooter, mainFooter.querySelector('footer'));
+          this.toggleElements(mainHeader, mainHeader.querySelector('nav'));
+
           this.elementsToHide = document.querySelectorAll(this.hideElements.join(', '));
           this.elementsToHide.forEach(function(element){
-              var isDisabled = element.__data__ && element.__data__.disable == "true",
-                      isFullScreenMode = element.hasAttribute('ks-fullscreen-mode');
+              this.toggleElements(element, element);
+          }, this);
 
-              element.toggleAttribute('ks-fullscreen-mode');
-              if(isDisabled) {
-                  return;
-              }
-              if(isFullScreenMode){
-                  element.removeAttribute('hidden');
-              } else {
-                  element.setAttribute('hidden', '');
-              }
-          });
+          this.activateFullScreen();
+          //To notify the window that the layout has changed. E.g the sticky-header will be recalculated
+          window.dispatchEvent(new CustomEvent('scroll'));
+      },
+      toggleElements: function(element, node){
+          var isDisabled = element.getAttribute('disable') == 'true',
+              isFullScreenMode = element.hasAttribute('ks-fullscreen-mode');
+
+          element.toggleAttribute('ks-fullscreen-mode');
+          if(isDisabled) {
+              return;
+          }
+          if(isFullScreenMode){
+              node.removeAttribute('hidden');
+          } else {
+              node.setAttribute('hidden', '');
+          }
+      },
+      activateFullScreen: function(){
           this.toggleAttribute('fullscreen-active');
           var isFullScreenActive = this.hasAttribute('fullscreen-active');
           this.fullscreen(isFullScreenActive);
@@ -156,8 +169,6 @@
           } else {
               this.toolTipTitle = this.openTitle;
           }
-          //To notify the window that the layout has changed. E.g the sticky-header will be recalculated
-          window.dispatchEvent(new CustomEvent('scroll'));
       }
   });
   </script>

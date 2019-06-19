@@ -45,7 +45,7 @@
         }
       }
     </style>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" hidden="[[hidden]]">
       <div class="navbar-header" short-name$="{{shortName}}">
         <a href$="{{siteUrl}}" class="navbar-brand"></a>
         {{siteName}}
@@ -59,20 +59,20 @@
 
   <script>
   Polymer({
-      is: 'ks-main-header',
-      behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.StateBehavior],
+    is: 'ks-main-header',
+    behaviors: [CUIBehaviors.GlobalBehavior, CUIBehaviors.StateBehavior],
 
-      properties: {
-        siteName: String,
-        shortName: String,
-        siteUrl: {
-          type: String,
-          value: '/'
-        }
-      },
-      attributeChanged: function (name, type) {
-          this.header(this.getAttribute('disable') == 'true');
+    properties: {
+      siteName: String,
+      shortName: String,
+      siteUrl: {
+        type: String,
+        value: '/'
       }
+    },
+    attributeChanged: function (name, type) {
+      this.header(this.getAttribute('disable') == 'true');
+    }
   });
   </script>
 
