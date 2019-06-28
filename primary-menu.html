@@ -175,10 +175,10 @@
       },
       attributeChanged: function (name, type) {
           Polymer.RenderStatus.afterNextRender(this, function () {
-              if(!this.init){
-                  this._initMenu('.primary-menu.active a');
-                  this.init = true;
-              }
+            //   if(!this.init){
+                this._initMenu('.primary-menu.active a');
+            //       this.init = true;
+            //   }
               this.doAdapt();
               var moreActiveItems = this.querySelector('.more-dropdown li.active:not(.hidden)');
               //Set more menu to be active
