@@ -11,6 +11,7 @@ gulp.task('fetch-corporate-ui-css', function() {
         base: 'https://d31jnweo1ynb8u.cloudfront.net/build/global/' + corporateUIVersion + '/css/'
     })
         .pipe(replace('\'/resources/' , '\'https://static.scania.com/resources/'))
+        .pipe(replace('core.css\"', 'core.css?v='+ corporateUIVersion + '\"' ))
         .pipe(gulp.dest('./css/corporate-ui/'));
 });
 
