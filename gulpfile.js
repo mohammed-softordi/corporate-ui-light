@@ -2,16 +2,18 @@ var gulp = require('gulp'),
     remoteSrc = require('gulp-remote-src'),
     argv = require('yargs').argv,
     replace = require('gulp-replace'),
-    fs = require('fs');
+    fs = require('fs'),
+    cuiVersion = '3.5.2',
+    config = { corporateUIVersion: cuiVersion };
 
 gulp.task('fetch-corporate-ui-css', function() {
-    var corporateUIVersion = argv.cuiversion || '3.5.2';
-
+    cuiVersion = argv.cuiversion || cuiVersion;
+    config.corporateUIVersion = cuiVersion;
     return remoteSrc(['corporate-ui.css', 'core.css'], {
-        base: 'https://d31jnweo1ynb8u.cloudfront.net/build/global/' + corporateUIVersion + '/css/'
+        base: 'https://d31jnweo1ynb8u.cloudfront.net/build/global/' + cuiVersion + '/css/'
     })
         .pipe(replace('\'/resources/' , '\'https://static.scania.com/resources/'))
-        .pipe(replace('core.css\"', 'core.css?v='+ corporateUIVersion + '\"' ))
+        .pipe(replace('core.css\"', 'core.css?v='+ cuiVersion + '\"' ))
         .pipe(gulp.dest('./css/corporate-ui/'));
 });
 
@@ -23,6 +25,13 @@ gulp.task('fetch-font-awesome-pro', function() {
         .pipe(gulp.dest('./css/font-awesome/'));
 });
 
+gulp.task('config', function(done) {
+    var content = `window.corparateUiLightConfig=${JSON.stringify(config)};`;
+    fs.writeFileSync('config.js', content);
+    done();
+});
+
 gulp.task('default', gulp.series([
-    'fetch-corporate-ui-css'
+    'fetch-corporate-ui-css',
+    'config'
 ]));

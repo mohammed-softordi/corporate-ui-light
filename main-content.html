@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="css/corporate-ui/corporate-ui.css">
 
 <script src="polyfill/polyfills.js"></script>
+<script src="config.js"></script>
 <link rel="import" href="behaviors/state-behavior.html">
 
 <dom-module id="ks-main-content">
@@ -79,6 +80,17 @@
 
         document.head.appendChild(meta);
       });
+
+      // Add corporate-ui version to html tag
+      try {
+        if (window.corparateUiLightConfig) {
+          var config = window.corparateUiLightConfig,
+              selectedTag = document.getElementsByTagName('html')[0];
+          if (config.corporateUIVersion && selectedTag) {
+            selectedTag.setAttribute('corporate-ui-version', config.corporateUIVersion);
+          }
+        }
+      } catch (err) {}
 
       this.unresolved();
     }
