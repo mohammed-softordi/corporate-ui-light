@@ -1,70 +1,206 @@
 <!doctype html>
 <html>
-  <head>
-    <script src="node_modules/webcomponents.js/webcomponents-lite.js"></script>
-    <script src="node_modules/jquery/dist/jquery.js"></script>
-      <!--<script src="node_modules/corporate-ui-light/polyfill/ie-polyfills.js"></script>-->
 
-    <script>
+<head>
+  <script src="node_modules/webcomponents.js/webcomponents-lite.js"></script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <!-- <script src="node_modules/corporate-ui-light/polyfill/ie-polyfills.js"></script> -->
+  <script src="node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js" data-concat="false"></script>
 
-      /*
+  <script>
+    /*
       window.Polymer = window.Polymer || {};
       window.Polymer.dom = 'shadow';
       */
-    </script>
-    <link rel="import" href="corporate-ui-light-demo.html">
-    <link rel="import" href="node_modules/corporate-ui-light/nav-item.html">
-    <link rel="import" href="node_modules/corporate-ui-light/main-navigation.html">
-    <link rel="import" href="node_modules/corporate-ui-light/main-content.html">
-    <link rel="import" href="node_modules/corporate-ui-light/main-footer.html">
-  </head>
-  <body class="app scania">
+  </script>
+  <link rel="import" href="corporate-ui-light-demo.html">
+  <link rel="import" href="node_modules/corporate-ui-light/nav-item.html">
+  <link rel="import" href="node_modules/corporate-ui-light/main-navigation.html">
+  <link rel="import" href="node_modules/corporate-ui-light/main-content.html">
+  <link rel="import" href="node_modules/corporate-ui-light/main-footer.html">
+</head>
 
-   <ks-main-navigation>
-       <ks-main-header site-name="Corporate UI Light" site-url="#" short-name="CUI Light">
-            <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Help" target="_blank" icon-position="right">
-              <i class="fa-2x-medium fa fa-truck"></i>
-            </ks-nav-item>
-            <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Login" target="_blank"></ks-nav-item>
-      </ks-main-header>
+<body class="app scania">
 
-       <primary-menu items='[{"title": "primary22 1", "href": "#mbkdnc11542"}, {"title": "primary55 2", "href": "#osdsjkk2", "active": "true",
-                    "items":[{"title": "submenu 1", "href": "#3"}, {"title": "submenu 2", "href": "#55"}]},
-                    {"title": "primary99 3", "href": "#5", "items":[{"title": "submenu-3", "href": "#73"},
-                    {"title": "submenu 4", "href": "#859", "active": "true", "items":[{"title": "submenu-3-2", "href": "#73-2"}]}]},
-                    {"title": "primary22 4", "href": "#mbkdnc115423"},
-                    {"title": "primary22 2", "href": "#mbkdnc115425"},{"title": "primary22 5", "href": "#mbkdnc115425"},
-                    {"title": "primary22 3", "href": "#mbkdnc115420o"},{"title": "primary22 6", "href": "#mbkdnc1154g2"}]'>
-       </primary-menu>
-        <secondary-menu>
-            <secondary-menu-item>
-                <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard"
-                             title="Get started" target="_blank" type="button" class="btn btn-info btn-lg" >
-                        <i class="fa-2x-medium fa fa-home"></i>
-                </ks-nav-item>
-            </secondary-menu-item>
-           <secondary-menu-item dropdown="true"
-                                items='[{"title": "Administration", "href":"#etry545",
-                                "items":[{"title": "secondary 3", "href": "#hg6"}, {"title": "secondary 4", "href": "#htit7"}]
+  <ks-main-navigation>
+    <ks-main-header site-name="Corporate UI Light" site-url="#" short-name="CUI Light">
+      <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Help" target="_blank"
+        icon-position="right">
+        <i class="fa-2x-medium fa fa-truck"></i>
+      </ks-nav-item>
+      <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Login" target="_blank"></ks-nav-item>
+    </ks-main-header>
+
+    <primary-menu items='[{
+        "state": "dashboard",
+        "title": "Start",
+        "href": "#/",
+        "classes": "",
+        "active": true,
+        "id": "dashboard-"
+    },
+    {
+        "state": "fleetPosition.vehicle.map",
+        "title": "Fleet position",
+        "href": "#/positioning/fleet-position/map",
+        "classes": "",
+        "active": false,
+        "id": "fleetPosition-vehicle-map-",
+        "items": [{
+                "state": "fleetPosition.vehicle.map",
+                "title": "Map",
+                "href": "#/positioning/fleet-position/map",
+                "classes": "",
+                "active": false,
+                "id": "fleetPosition-vehicle-map-"
+            },
+            {
+                "state": "fleetPosition.vehicle.list",
+                "title": "Vehicles",
+                "href": "#/positioning/fleet-position/vehicle-list",
+                "classes": "",
+                "active": false,
+                "id": "fleetPosition-vehicle-list-"
+            },
+            {
+                "state": "eventList",
+                "title": "Events",
+                "href": "#/positioning/fleet-position/event-list",
+                "classes": "",
+                "active": false,
+                "id": "eventList-"
+            }
+        ],
+        "caption": "Fleet position"
+      },
+      {
+        "state": "servicePlanning.toDo",
+        "title": "Service planning",
+        "href": "#/sp/to-do",
+        "classes": "",
+        "active": false,
+        "id": "servicePlanning-toDo-",
+        "items": [{
+                "state": "servicePlanning.toDo",
+                "title": "To do",
+                "href": "#/sp/to-do",
+                "classes": "",
+                "active": false,
+                "id": "servicePlanning-toDo-"
+            },
+            {
+                "state": "servicePlanning.calendar",
+                "title": "Calendar",
+                "href": "#/sp/calendar",
+                "classes": "",
+                "active": false,
+                "id": "servicePlanning-calendar-"
+            },
+            {
+                "state": "servicePlanning.defectList",
+                "title": "Defect reports",
+                "href": "#/sp/defect-list",
+                "classes": "",
+                "active": false,
+                "id": "servicePlanning-defectList-"
+            }
+        ],
+        "caption": "Service planning"
+      },
+      {
+        "state": "driverEvaluation.home",
+        "title": "Driver evaluation",
+        "href": "#/driver-evaluation/home",
+        "classes": "",
+        "active": false,
+        "id": "driverEvaluation-home-",
+        "items": [{
+                "state": "driverEvaluation.ranking",
+                "title": "Result",
+                "href": "#/driver-evaluation/results",
+                "classes": "",
+                "active": false,
+                "id": "driverEvaluation-ranking-"
+            },
+            {
+                "state": "driverEvaluation.fuelConsumption",
+                "title": "Fuel consumption",
+                "href": "#/driver-evaluation/fuel-consumption",
+                "classes": "",
+                "active": false,
+                "id": "driverEvaluation-fuelConsumption-"
+            },
+            {
+                "state": "driverEvaluation.driverData",
+                "title": "Driver data",
+                "href": "#/driver-evaluation/driver-data",
+                "classes": "",
+                "active": false,
+                "id": "driverEvaluation-driverData-"
+            }
+        ],
+        "caption": "Driver evaluation"
+      },
+      {
+        "state": "vehiclePerformance.overview",
+        "title": "Vehicle performance",
+        "href": "#/vehicle-performance/overview",
+        "classes": "",
+        "active": false,
+        "id": "vehiclePerformance-overview-",
+        "items": [{
+                "state": "vehiclePerformance.overview",
+                "title": "Overview",
+                "href": "#/vehicle-performance/overview",
+                "classes": "",
+                "active": false,
+                "id": "vehiclePerformance-overview-"
+            },
+            {
+                "state": "vehiclePerformance.details",
+                "title": "Details",
+                "href": "#/vehicle-performance/details",
+                "classes": "",
+                "active": false,
+                "id": "vehiclePerformance-details-"
+            }
+        ],
+        "caption": "Vehicle performance"
+      }
+    ]'
+    >
+    </primary-menu>
+    <secondary-menu>
+      <secondary-menu-item>
+        <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Get started" target="_blank"
+          type="button" class="btn btn-info btn-lg">
+          <i class="fa-2x-medium fa fa-home"></i>
+        </ks-nav-item>
+      </secondary-menu-item>
+      <secondary-menu-item dropdown="true" items='[{"state": "Administration", "title": "Administration", "href":"#etry545",
+                                "items":[{"state": "secondary3", "title": "secondary 3", "href": "#hg6"}, {"state": "secondary4", "title": "secondary 4", "href": "#htit7"}]
                                 }]'>
-           </secondary-menu-item>
+      </secondary-menu-item>
 
-           <secondary-menu-item items='[{"title": "secondary 1", "href": "#we6", "target":"_blank"}, {"title": "secondary 2", "href": "#ewe7"}]'></secondary-menu-item>
-        </secondary-menu>
+      <secondary-menu-item
+        items='[{"state": "secondary 1", "title": "secondary 1", "href": "#we6", "target":"_blank"}, {"state": "secondary2","title": "secondary 2", "href": "#ewe7"}]'>
+      </secondary-menu-item>
+    </secondary-menu>
 
+    <!-- <ks-fullscreen hide-elements='["ks-main-footer", "ks-main-header", "primary-menu", "secondary-menu"]' title="This is the full screen"></ks-fullscreen> -->
 
-       <ks-fullscreen hide-elements='["ks-main-footer", "ks-main-header", "primary-menu", "secondary-menu"]' title="This is the full screen"></ks-fullscreen>
+  </ks-main-navigation>
 
-   </ks-main-navigation>
+  <ks-main-content>
+    <corporate-ui-light-demo></corporate-ui-light-demo>
+  </ks-main-content>
 
-    <ks-main-content>
-      <corporate-ui-light-demo></corporate-ui-light-demo>
-    </ks-main-content>
-
-    <ks-main-footer disable="true">
-      <ks-nav-item href="https://www.scania.com/global/en/home/misc/privacy-statement.html" title="Privacy statement" target="_blank">
+  <ks-main-footer disable="true">
+    <ks-nav-item href="https://www.scania.com/global/en/home/misc/privacy-statement.html" title="Privacy statement"
+      target="_blank">
     </ks-nav-item>
-    </ks-main-footer>
+  </ks-main-footer>
 
-  </body>
+</body>
+
 </html>

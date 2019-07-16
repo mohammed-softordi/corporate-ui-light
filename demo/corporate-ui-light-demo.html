@@ -1,5 +1,5 @@
 <link rel="import" href="node_modules/polymer-1.4.0/polymer.html">
- <link rel="import" href="node_modules/corporate-ui-light/nav-item.html">
+<link rel="import" href="node_modules/corporate-ui-light/nav-item.html">
 
 <dom-module id="corporate-ui-light-demo">
   <template>
@@ -7,6 +7,7 @@
       :host {
         font-family: sans-serif;
       }
+
       :host .get-started {
         position: absolute;
         left: 0;
@@ -15,41 +16,212 @@
         height: 50%;
         text-align: center;
       }
-      }
     </style>
 
-     <div style="width: 100%; height: 100vh ">
-        <div class="get-started">
-            <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard"
-                         title="Get started" target="_blank" type="button" class="btn btn-info btn-lg" >
-               <i class="fa-2x-medium fa fa-home"></i>
-            </ks-nav-item>
-        </div>
+    <div style="width: 100%; height: 100vh ">
+      <div class="get-started">
+        <ks-nav-item href="https://fmpnextgen.scania.com/#/help/dashboard" title="Get started" target="_blank"
+          type="button" class="btn btn-info btn-lg">
+          <i class="fa-2x-medium fa fa-home"></i>
+        </ks-nav-item>
       </div>
+    </div>
 
   </template>
-  
   <script>
     Polymer({
       is: "corporate-ui-light-demo",
 
       properties: {
-        primaryItems:{
+        primaryItems: {
           type: Array,
-          value: [{text: 'primary 1', location: '#1'}, {text: 'primary 2', location: '#2',
-            items:[{text: 'primary 5', location: '#5'}, {text: 'primary 6', location: '#6'}]}, {text: 'primary 3', location: '#3'},
-            {text: 'primary 4', location: '#4'}, {text: 'primary 5', location: '#5'}, {text: 'primary 6', location: '#6'},
-            {text: 'primary 4', location: '#4'}, {text: 'primary 5', location: '#5'}, {text: 'primary 6', location: '#6',
-              items:[{text: 'primary 5', location: '#5'}, {text: 'primary 6', location: '#6'}]}
+          value: [{
+              "state": "dashboard",
+              "title": "Start",
+              "href": "#/",
+              "classes": "",
+              "active": true,
+              "id": "dashboard-"
+            },
+            {
+              "state": "fleetPosition.vehicle.map",
+              "title": "Fleet position",
+              "href": "#/positioning/fleet-position/map",
+              "classes": "",
+              "active": false,
+              "id": "fleetPosition-vehicle-map-",
+              "items": [{
+                  "state": "fleetPosition.vehicle.map",
+                  "title": "Map",
+                  "href": "#/positioning/fleet-position/map",
+                  "classes": "",
+                  "active": false,
+                  "id": "fleetPosition-vehicle-map-"
+                },
+                {
+                  "state": "fleetPosition.vehicle.list",
+                  "title": "Vehicles",
+                  "href": "#/positioning/fleet-position/vehicle-list",
+                  "classes": "",
+                  "active": false,
+                  "id": "fleetPosition-vehicle-list-"
+                },
+                {
+                  "state": "eventList",
+                  "title": "Events",
+                  "href": "#/positioning/fleet-position/event-list",
+                  "classes": "",
+                  "active": false,
+                  "id": "eventList-"
+                }
+              ],
+              "caption": "Fleet position"
+            },
+            {
+              "state": "servicePlanning.toDo",
+              "title": "Service planning",
+              "href": "#/sp/to-do",
+              "classes": "",
+              "active": false,
+              "id": "servicePlanning-toDo-",
+              "items": [{
+                  "state": "servicePlanning.toDo",
+                  "title": "To do",
+                  "href": "#/sp/to-do",
+                  "classes": "",
+                  "active": false,
+                  "id": "servicePlanning-toDo-"
+                },
+                {
+                  "state": "servicePlanning.calendar",
+                  "title": "Calendar",
+                  "href": "#/sp/calendar",
+                  "classes": "",
+                  "active": false,
+                  "id": "servicePlanning-calendar-"
+                },
+                {
+                  "state": "servicePlanning.defectList",
+                  "title": "Defect reports",
+                  "href": "#/sp/defect-list",
+                  "classes": "",
+                  "active": false,
+                  "id": "servicePlanning-defectList-"
+                }
+              ],
+              "caption": "Service planning"
+            },
+            {
+              "state": "driverEvaluation.home",
+              "title": "Driver evaluation",
+              "href": "#/driver-evaluation/home",
+              "classes": "",
+              "active": false,
+              "id": "driverEvaluation-home-",
+              "items": [{
+                  "state": "driverEvaluation.ranking",
+                  "title": "Result",
+                  "href": "#/driver-evaluation/results",
+                  "classes": "",
+                  "active": false,
+                  "id": "driverEvaluation-ranking-"
+                },
+                {
+                  "state": "driverEvaluation.fuelConsumption",
+                  "title": "Fuel consumption",
+                  "href": "#/driver-evaluation/fuel-consumption",
+                  "classes": "",
+                  "active": false,
+                  "id": "driverEvaluation-fuelConsumption-"
+                },
+                {
+                  "state": "driverEvaluation.driverData",
+                  "title": "Driver data",
+                  "href": "#/driver-evaluation/driver-data",
+                  "classes": "",
+                  "active": false,
+                  "id": "driverEvaluation-driverData-"
+                }
+              ],
+              "caption": "Driver evaluation"
+            },
+            {
+              "state": "vehiclePerformance.overview",
+              "title": "Vehicle performance",
+              "href": "#/vehicle-performance/overview",
+              "classes": "",
+              "active": false,
+              "id": "vehiclePerformance-overview-",
+              "items": [{
+                  "state": "vehiclePerformance.overview",
+                  "title": "Overview",
+                  "href": "#/vehicle-performance/overview",
+                  "classes": "",
+                  "active": false,
+                  "id": "vehiclePerformance-overview-"
+                },
+                {
+                  "state": "vehiclePerformance.details",
+                  "title": "Details",
+                  "href": "#/vehicle-performance/details",
+                  "classes": "",
+                  "active": false,
+                  "id": "vehiclePerformance-details-"
+                }
+              ],
+              "caption": "Vehicle performance"
+            }
           ]
         },
-        secondaryItems:{
+        secondaryItems: {
           type: Array,
-          value: [{text: 'secondary 1', location: '#1'}, {text: 'secondary 2', location: '#2'}, {text: 'secondary 3', location: '#3'}]
+          value: [{
+            "state": "noAdministrationState",
+            "title": "Administration",
+            "href": "",
+            "active": false,
+            "items": [{
+                "state": "administration.equipment.list",
+                "title": "Equipment",
+                "href": "#/administration/equipment",
+                "classes": "",
+                "active": false,
+                "id": "administration-equipment-list-"
+              },
+              {
+                "state": "administration.addressBook",
+                "title": "Address book",
+                "href": "#/administration/address-book",
+                "classes": "",
+                "active": false,
+                "id": "administration-addressBook-"
+              },
+              {
+                "state": "settings.profile",
+                "title": "Settings",
+                "href": "#/settings/profile",
+                "classes": "",
+                "active": false,
+                "id": "settings-profile-"
+              }
+            ]
+          }]
         },
-        accountItems:{
+        accountItems: {
           type: Array,
-          value: [{text: 'account 1', location: '#1'}, {text: 'account 2', location: '#2'}, {text: 'account 3', location: '#3'}]
+          value: [{
+            "title": 'account 1',
+            "state": 'account 1',
+            "href": '#1'
+          }, {
+            "title": 'account 2',
+            "state": 'account 2',
+            "href": '#2'
+          }, {
+            "title": 'account 3',
+            "state": 'account 3',
+            "href": '#3'
+          }]
         }
       }
     });
