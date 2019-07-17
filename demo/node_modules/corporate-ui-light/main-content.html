@@ -92,7 +92,9 @@
         }
       } catch (err) {}
 
-      this.unresolved();
+      // Todo: Why do we add "unresolved" to the body tag.
+      // if it is needed, then we need to find a way to remove it after the component has finished to load.
+      // this.unresolved();
     }
   });
   </script>
