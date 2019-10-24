@@ -3,7 +3,7 @@ var gulp = require('gulp'),
     argv = require('yargs').argv,
     replace = require('gulp-replace'),
     fs = require('fs'),
-    cuiVersion = '3.5.2',
+    cuiVersion = '3.5.3-1',
     config = { corporateUIVersion: cuiVersion };
 
 gulp.task('fetch-corporate-ui-css', function() {

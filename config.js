@@ -1,1 +1,1 @@
-window.corparateUiLightConfig={"corporateUIVersion":"3.5.2"};
+window.corparateUiLightConfig={"corporateUIVersion":"3.5.3-1"};
