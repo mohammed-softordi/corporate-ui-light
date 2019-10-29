@@ -64,8 +64,8 @@
             border-color: #041e42;
             white-space: nowrap;
         }
-        :host .tooltip.bottom .tooltip-arrow{
-            border-bottom-color: #041e42
+        :host .tooltip.left .tooltip-arrow{
+          border-left-color: #041e42
         }
         :host .tooltip.bottom {
             left: -125px!important;
@@ -119,7 +119,7 @@
           $(this.$.fullcreenToggle).tooltip({
               trigger: 'hover focus',
               delay: { 'show': 100, 'hide': 500 },
-              placement: 'bottom',
+              placement: 'left',
               title: this._getTitle.bind(this)
           });
           $(this.$.fullcreenToggle).tooltip('show');

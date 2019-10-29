@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     argv = require('yargs').argv,
     replace = require('gulp-replace'),
     fs = require('fs'),
+    prependFile = require('prepend-file'),
     cuiVersion = '3.5.3-1',
     config = { corporateUIVersion: cuiVersion };
 
@@ -28,6 +29,14 @@ gulp.task('fetch-font-awesome-pro', function() {
 gulp.task('config', function(done) {
     var content = `window.corparateUiLightConfig=${JSON.stringify(config)};`;
     fs.writeFileSync('config.js', content);
+    done();
+});
+
+gulp.task('apply-overrides', function (done) {
+    var content = `@import url("cui-overrides.css");`;
+    prependFile('./css/corporate-ui/corporate-ui.css', content, function(err, result) {
+        if(err) console.log('error', err);
+    });
     done();
 });
 

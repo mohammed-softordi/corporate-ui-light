@@ -1,0 +1,11 @@
+.table thead > tr > td .select2-container abbr {
+    right: 15%!important;
+}
+.app .select2-container-multi.select2-container-active .select2-choices .select2-search-field {
+    padding: 10px;
+    font-size: 1.4rem;
+}
+
+.app .select2-container-multi .select2-choices .select2-search-field input {
+    text-indent: 5px;
+}
