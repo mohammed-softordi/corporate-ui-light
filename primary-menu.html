@@ -142,7 +142,9 @@
 
                         <template is="dom-repeat" items="{{primary.items}}" as="subItem">
                              <li class$="{{conditionalClass('active', subItem, 'active')}}">
-                                <ks-nav-item href="[[subItem.href]]" title="[[subItem.title]]" target="[[subItem.target]]"></ks-nav-item>
+                                <ks-nav-item href="[[subItem.href]]" title="[[subItem.title]]" target="[[subItem.target]]">
+                                      <span if="{{subItem.badge}}" class$="{{subItem.classes}}">[[subItem.badge]]</span>
+                                </ks-nav-item>
                              </li>
                         </template>
                     </ul>
