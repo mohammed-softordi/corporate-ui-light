@@ -113,6 +113,7 @@
              <li class$="main-menu-item {{conditionalClass('active', item, 'active')}}" >
               <ks-nav-item href="{{item.href}}" title="{{item.title}}" target="{{item.target}}" id="{{item.id}}"
                            index$="[[index]]" icon-position="right" on-click="onToggleSubmenu">
+                  <span dom-if="{{subItem.badge}}" class$="{{subItem.classes}}">[[subItem.badge]]</span>
               </ks-nav-item>
             </li>
           </template>
@@ -125,7 +126,9 @@
                    <template is="dom-repeat" items="{{items}}">
                          <li class$="{{conditionalClass('active', item, 'active')}}">
                               <ks-nav-item href="[[item.href]]" title="[[item.title]]"  index$="[[index]]"
-                                           target="[[item.target]]" id="{{item.id}}" on-click="onDropdownItemActive"></ks-nav-item>
+                                           target="[[item.target]]" id="{{item.id}}" on-click="onDropdownItemActive">
+                                    <span dom-if="{{subItem.badge}}" class$="{{subItem.classes}}">[[subItem.badge]]</span>
+                              </ks-nav-item>
                              <!--<a href="{{item.href}}" target="{{conditionalAttr(item.target)}}" on-click="onDropdownItemActive">{{item.title}}</a>-->
                         </li>
                   </template>
