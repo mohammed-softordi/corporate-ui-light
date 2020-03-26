@@ -12,14 +12,14 @@
     "gulpfile.js"
   ],
   "dependencies": {
-    "bootstrap": "3.3.5",
+    "bootstrap": "3.4.1",
     "bootstrap-treeview": "https://github.com/mohammed-softordi/bootstrap-treeview/archive/v1.2.4.tar.gz",
     "jquery": "^3.3.1",
     "polymer-1.4.0": "1.4.0",
     "webcomponents.js": "0.7.24"
   },
   "resolutions": {
-    "bootstrap": "3.3.5"
+    "bootstrap": "3.4.1"
   },
   "repository": {
     "type": "git",
