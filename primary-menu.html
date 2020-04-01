@@ -113,6 +113,9 @@
              <li class$="main-menu-item {{conditionalClass('active', item, 'active')}}" >
               <ks-nav-item href="{{item.href}}" title="{{item.title}}" target="{{item.target}}" id="{{item.id}}"
                            index$="[[index]]" icon-position="right" on-click="onToggleSubmenu">
+                  <template is="dom-if" if="{{subItem.badge}}">
+                      <span class$="{{subItem.classes}}">[[subItem.badge]]</span>
+                  </template>
               </ks-nav-item>
             </li>
           </template>
@@ -125,7 +128,11 @@
                    <template is="dom-repeat" items="{{items}}">
                          <li class$="{{conditionalClass('active', item, 'active')}}">
                               <ks-nav-item href="[[item.href]]" title="[[item.title]]"  index$="[[index]]"
-                                           target="[[item.target]]" id="{{item.id}}" on-click="onDropdownItemActive"></ks-nav-item>
+                                           target="[[item.target]]" id="{{item.id}}" on-click="onDropdownItemActive">
+                                    <template is="dom-if" if="{{subItem.badge}}">
+                                        <span class$="{{subItem.classes}}">[[subItem.badge]]</span>
+                                    </template>
+                              </ks-nav-item>
                              <!--<a href="{{item.href}}" target="{{conditionalAttr(item.target)}}" on-click="onDropdownItemActive">{{item.title}}</a>-->
                         </li>
                   </template>
@@ -142,7 +149,11 @@
 
                         <template is="dom-repeat" items="{{primary.items}}" as="subItem">
                              <li class$="{{conditionalClass('active', subItem, 'active')}}">
-                                <ks-nav-item href="[[subItem.href]]" title="[[subItem.title]]" target="[[subItem.target]]"></ks-nav-item>
+                                <ks-nav-item href="[[subItem.href]]" title="[[subItem.title]]" target="[[subItem.target]]">
+                                      <template is="dom-if" if="{{subItem.badge}}">
+                                          <span class$="{{subItem.classes}}">[[subItem.badge]]</span>
+                                      </template>
+                                </ks-nav-item>
                              </li>
                         </template>
                     </ul>
